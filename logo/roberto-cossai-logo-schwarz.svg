@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1254 1254" width="1254" height="1254">
+<title>Roberto Cossai Logo</title>
+<defs>
+<clipPath id="k1"><rect x="150" y="729" width="720" height="76"/></clipPath>
+<clipPath id="k2"><rect x="150" y="838" width="720" height="76.5"/></clipPath>
+</defs>
+
+<g fill="none" stroke="#000000" stroke-linejoin="miter" stroke-linecap="butt">
+<path stroke-width="10" d="M231 690 V224 H1023 V1014 H231 V945"/>
+<g stroke-width="6">
+<!-- ROBERTO -->
+<path d="M180 729 V805"/>
+<path clip-path="url(#k1)" d="M180 732 H222 A17 17 0 0 1 222 766 H204.5 L241.5 808"/>
+<circle cx="319.5" cy="768" r="37"/>
+<path d="M395 729 V805 M395 732 H427.5 A16 16 0 0 1 427.5 764 H395 M395 764 H430.5 A19 19 0 0 1 430.5 802 H395"/>
+<path d="M540 732 H493 V802 H540 M493 764 H532"/>
+<path d="M585 729 V805"/>
+<path clip-path="url(#k1)" d="M585 732 H623 A17 17 0 0 1 623 766 H607.6 L643.3 808"/>
+<path d="M673 732 H727 M700 732 V805"/>
+<circle cx="796.5" cy="768" r="37"/>
+<!-- COSSAI -->
+<path d="M241.3 850.7 A36.5 36.5 0 1 0 241.3 902.3"/>
+<circle cx="319.5" cy="877.5" r="37"/>
+<path d="M445.5 847 C440 843.2 433.5 841 427.5 841 C415 841 405.75 847.5 405.75 858.5 C405.75 867.5 413.5 871.5 427.5 877 C441.5 882.5 449.25 886.5 449.25 895.5 C449.25 906 440 913 427.5 913 C421 913 413.5 910.5 405.5 903.5"/>
+<path transform="translate(87 0)" d="M445.5 847 C440 843.2 433.5 841 427.5 841 C415 841 405.75 847.5 405.75 858.5 C405.75 867.5 413.5 871.5 427.5 877 C441.5 882.5 449.25 886.5 449.25 895.5 C449.25 906 440 913 427.5 913 C421 913 413.5 910.5 405.5 903.5"/>
+<path clip-path="url(#k2)" d="M573.3 920 L612.6 844.6 L650.5 920"/>
+<path d="M700 839 V915"/>
+</g>
+</g>
+</svg>

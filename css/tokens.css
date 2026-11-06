@@ -1,0 +1,40 @@
+/* erzeugt von tokens_pruefen.py aus tokens/marke.tokens.json, nicht von Hand ändern */
+:root {
+  --farbe-basis-cyan: #00a0e2;
+  --farbe-basis-dunkelblau: #074ea1;
+  --farbe-basis-magenta: #e6007d;
+  --farbe-basis-weiss: #ffffff;
+  --farbe-basis-tinte: #0a111a;
+  --farbe-basis-schiefer: #414f5c;
+  --farbe-basis-nebel: #e9f5fb;
+  --farbe-basis-linie: #c1d6e1;
+  --farbe-rolle-surface: var(--farbe-basis-weiss);
+  --farbe-rolle-on-surface: var(--farbe-basis-tinte);
+  --farbe-rolle-muted: var(--farbe-basis-schiefer);
+  --farbe-rolle-line: var(--farbe-basis-linie);
+  --farbe-rolle-tint: var(--farbe-basis-nebel);
+  --farbe-rolle-brand: var(--farbe-basis-cyan);
+  --farbe-rolle-on-brand: var(--farbe-basis-tinte);
+  --farbe-rolle-surface-invert: var(--farbe-basis-dunkelblau);
+  --farbe-rolle-on-invert: var(--farbe-basis-weiss);
+  --farbe-rolle-accent: var(--farbe-basis-magenta);
+  --farbe-rolle-on-accent: var(--farbe-basis-weiss);
+  --farbe-rolle-focus: var(--farbe-basis-dunkelblau);
+  --farbe-rolle-focus-invert: var(--farbe-basis-weiss);
+  --abstand-1: 4px;
+  --abstand-2: 8px;
+  --abstand-3: 12px;
+  --abstand-4: 16px;
+  --abstand-6: 24px;
+  --abstand-8: 32px;
+  --abstand-12: 48px;
+  --abstand-16: 64px;
+  --abstand-24: 96px;
+  --abstand-32: 128px;
+  --radius-null: 0px;
+  --bewegung-dauer-kurz: 150ms;
+  --bewegung-dauer-mittel: 240ms;
+  --bewegung-dauer-auftritt: 700ms;
+  --bewegung-kurve-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --bewegung-kurve-ein: cubic-bezier(0, 0, 0.38, 0.9);
+}
