@@ -330,7 +330,9 @@ form .knopf { margin-top: var(--abstand-6); }
   .menue-knopf { display: inline-flex; align-items: center; min-height: 44px; padding-inline: var(--abstand-3); background: none; border: 2px solid var(--farbe-rolle-on-surface); font: 600 1rem/1 var(--titel); color: inherit; cursor: pointer; }
   .js .nav { display: none; }
   .nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--farbe-rolle-surface); border-bottom: 3px solid var(--farbe-rolle-on-surface); padding: var(--abstand-2) var(--rand) var(--abstand-4); }
-  html:not(.js) .nav { position: static; }
+  html:not(.js) .nav { position: static; order: 3; flex: 0 0 100%; margin: 0; padding-inline: 0; border-bottom: 0; }
+  html:not(.js) .kopf-innen { flex-wrap: wrap; }
+  html:not(.js) .menue-knopf { display: none; }
   .js .nav.offen { display: block; }
   .nav ul { display: block; }
   .nav a { padding-block: var(--abstand-3); font-size: 1.375rem; }
