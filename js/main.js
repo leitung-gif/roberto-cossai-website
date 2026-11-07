@@ -30,27 +30,21 @@
     aufrufe.forEach(function (a) { beobachter.observe(a); });
   }
 
-  // Hero-Film: nur mit Bewegung und ohne Datensparen, steht ausserhalb des Bilds still
-  var film = document.querySelector(".rahmen video");
+  // Film: YouTube lädt erst nach dem Klick. Im Entwurf ohne Video nur ein Hinweis.
   var ruhig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var sparen = navigator.connection && navigator.connection.saveData;
-  if (film && !ruhig && !sparen) {
-    var filmKnopf = document.querySelector(".film-knopf");
-    var angehalten = false;
-    film.addEventListener("playing", function () { film.classList.add("laeuft"); filmKnopf.hidden = false; });
-    var spielen = function () { var p = film.play(); if (p) p.catch(function () {}); };
-    filmKnopf.addEventListener("click", function () {
-      angehalten = !angehalten;
-      if (angehalten) film.pause(); else spielen();
-      filmKnopf.classList.toggle("steht", angehalten);
-      filmKnopf.setAttribute("aria-label", angehalten ? "Film abspielen" : "Film anhalten");
+  var film = document.querySelector(".film");
+  if (film) {
+    film.querySelector(".film-start").addEventListener("click", function (e) {
+      e.preventDefault();
+      var id = film.dataset.youtube;
+      if (!id) { film.querySelector(".film-hinweis").hidden = false; return; }
+      var rahmen = document.createElement("iframe");
+      rahmen.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&cc_load_policy=1";
+      rahmen.title = "Roberto Cossai stellt sich vor";
+      rahmen.allow = "autoplay; encrypted-media; fullscreen";
+      rahmen.allowFullscreen = true;
+      film.replaceChildren(rahmen);
     });
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (x) {
-        if (angehalten) return;
-        if (x[0].isIntersecting) spielen(); else film.pause();
-      }).observe(film);
-    } else spielen();
   }
 
   // Stimmen: Knöpfe führen die Spur, Wischen und Tastatur gehen ohne sie
