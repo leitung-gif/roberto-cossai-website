@@ -98,7 +98,7 @@
 
   // Kontakt: Thema aus dem Aufruf übernehmen, damit der erste Schritt schon getan ist
   var ortFeld = document.getElementById("ort");
-  var themen = { digital: "Digitaler Kanton", wohnen: "Wohnen", gesundheit: "Gesundheit", sicherheit: "Sicher und erreichbar" };
+  var themen = { wohnen: "Wohnen", digital: "Ein Staat, der funktioniert", gesundheit: "Gesundheit", sicherheit: "Sicherheit", finanzen: "Finanzen", bildung: "Bildung", erreichbarkeit: "Erreichbarkeit" };
   var gewaehlt = new URLSearchParams(location.search).get("thema");
   if (ortFeld && themen[gewaehlt]) ortFeld.value = themen[gewaehlt];
 

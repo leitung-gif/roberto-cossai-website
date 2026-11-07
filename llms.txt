@@ -2,7 +2,7 @@
 
 > Roberto Cossai kandidiert am 21.03.2027 für den Kantonsrat des Kantons Luzern, Wahlkreis Luzern-Stadt, FDP.Die Liberalen Stadt Luzern, Liste 4.
 
-- [Positionen](https://leitung-gif.github.io/roberto-cossai-website/positionen.html): digitaler Kanton, Wohnen, Gesundheit, Sicherheit und Erreichbarkeit
+- [Positionen](https://leitung-gif.github.io/roberto-cossai-website/positionen.html): Wohnen, funktionierender Staat, Gesundheit, Sicherheit, Finanzen, Bildung, Erreichbarkeit
 - [Über mich](https://leitung-gif.github.io/roberto-cossai-website/ueber-mich.html): Haltung, Beruf, Engagement
 - [Medien](https://leitung-gif.github.io/roberto-cossai-website/medien.html): Porträt und Kurzbiografie
 - [Kontakt](https://leitung-gif.github.io/roberto-cossai-website/kontakt.html): Anliegen schreiben

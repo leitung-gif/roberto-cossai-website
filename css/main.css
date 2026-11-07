@@ -77,7 +77,8 @@ a:hover { color: var(--farbe-rolle-accent); }
 .hero h1 span { display: inline; }
 .hero-bild { grid-column: 1 / span 8; }
 .hero-rest { grid-column: 9 / -1; display: flex; flex-direction: column; justify-content: space-between; gap: var(--abstand-6); }
-.hero-satz { font: 500 var(--gr-klein)/1.3 var(--titel); }
+.hero-satz { font: 600 var(--gr-klein)/1.25 var(--titel); }
+.hero-zusatz { margin-top: var(--abstand-2); font: 500 1.0625rem/1.3 var(--titel); }
 .hero-aktion { display: flex; flex-wrap: wrap; align-items: center; gap: var(--abstand-4) var(--abstand-6); margin-top: var(--abstand-6); }
 .hero-aktion a:not(.knopf) { font-weight: 600; }
 .hero-fakten { font: 500 1.0625rem/1.25 var(--titel); font-variant-numeric: lining-nums; }
@@ -123,6 +124,25 @@ a:hover { color: var(--farbe-rolle-accent); }
 .klartext-schluss { grid-column: 4 / span 9; margin-top: var(--abstand-12); font-size: var(--gr-riese); line-height: 1; font-weight: 700; }
 .klartext-text { grid-column: 4 / span 6; margin-top: var(--abstand-12); max-width: var(--mass); }
 .klartext-text a { display: inline-block; margin-top: var(--abstand-4); }
+
+/* Mission und Zukunftsbild */
+.mission-kopf { grid-column: 1 / span 7; }
+.mission-kopf h2 { font-size: var(--gr-gross); }
+.mission-zeile { margin-top: var(--abstand-6); font: 600 var(--gr-klein)/1.25 var(--titel); color: var(--farbe-rolle-surface-invert); }
+.zukunft { grid-column: 9 / -1; align-self: end; }
+.zukunft h3 { font-size: var(--gr-klein); margin-bottom: var(--abstand-3); }
+.zukunft li { padding-block: var(--abstand-3); border-top: 1px solid var(--farbe-rolle-line); }
+
+/* Mein Weg */
+.weg-bild { grid-column: 1 / span 4; }
+.weg-text { grid-column: 6 / -1; align-self: center; }
+.weg-text h2 { font-size: var(--gr-gross); }
+.weg-text blockquote { margin-top: var(--abstand-6); max-width: 36em; font: 500 var(--gr-klein)/1.35 var(--titel); }
+.weg-text a { display: inline-block; margin-top: var(--abstand-6); font-weight: 600; }
+.weg-liste { grid-column: 1 / -1; margin-bottom: var(--abstand-12); border-top: 3px solid var(--farbe-rolle-on-surface); }
+.weg-liste li { display: grid; grid-template-columns: minmax(8em, 3fr) 9fr; gap: var(--abstand-1) var(--spalte); padding-block: var(--abstand-4); border-bottom: 1px solid var(--farbe-rolle-line); }
+.weg-liste strong { font: 700 var(--gr-klein)/1.25 var(--titel); font-variant-numeric: lining-nums; }
+.weg-liste span { max-width: var(--mass); }
 
 /* Themenwahl: ein Tipp, eine Antwort. Dank details auch ohne JavaScript bedienbar. */
 .themen-wahl { grid-column: 6 / -1; border-top: 3px solid var(--farbe-rolle-on-surface); }
@@ -224,7 +244,12 @@ a:hover { color: var(--farbe-rolle-accent); }
 .thema-text { grid-column: 7 / -1; max-width: var(--mass); }
 .thema-text p + p { margin-top: var(--abstand-4); }
 .thema-kern { font: 500 var(--gr-klein)/1.3 var(--titel); }
-.thema-frage { margin-top: var(--abstand-8); padding-top: var(--abstand-4); border-top: 1px solid var(--farbe-rolle-line); }
+.thema-felder { margin-top: var(--abstand-6); }
+.thema-felder div { padding-block: var(--abstand-3); border-top: 1px solid var(--farbe-rolle-line); }
+.thema-felder dt { font: 700 1.0625rem/1.4 var(--titel); }
+.thema-felder dd { margin-top: var(--abstand-1); }
+.quelle { display: block; margin-top: var(--abstand-1); font-size: var(--gr-fein); }
+.thema-frage { margin-top: var(--abstand-4); padding-top: var(--abstand-4); border-top: 3px solid var(--farbe-rolle-on-surface); }
 .thema-frage a { display: inline-block; margin-top: var(--abstand-2); font-weight: 600; }
 .partei { grid-column: 1 / span 8; font: 500 var(--gr-mittel)/1.25 var(--titel); }
 
@@ -246,6 +271,7 @@ a:hover { color: var(--farbe-rolle-accent); }
 .person-bild { grid-column: 1 / span 5; }
 .person-text { grid-column: 7 / -1; max-width: var(--mass); }
 .person-text p + p { margin-top: var(--abstand-4); }
+.person-text strong { font-family: var(--titel); }
 .person-text h2 { font-size: var(--gr-mittel); margin-bottom: var(--abstand-4); }
 .person-text p + h2 { margin-top: var(--abstand-12); }
 .zitat { grid-column: 1 / span 9; font: 500 var(--gr-mittel)/1.2 var(--titel); }
@@ -314,6 +340,9 @@ form .knopf { margin-top: var(--abstand-6); }
   .hero-fakten { display: flex; flex-wrap: wrap; gap: var(--abstand-3) var(--abstand-8); padding-top: var(--abstand-4); border-top: 2px solid var(--farbe-rolle-on-brand); }
   .hero-fakten li { padding: 0; border: 0; }
   .themen-wahl { grid-column: 1 / -1; margin-top: var(--abstand-8); }
+  .mission-kopf, .zukunft, .weg-text { grid-column: 1 / -1; }
+  .zukunft, .weg-text { margin-top: var(--abstand-8); }
+  .weg-bild { grid-column: 3 / span 8; }
   .stimme { flex-basis: 82%; }
   .rahmen { max-height: none; }
   .drei h3 { grid-column: 1 / -1; }
@@ -361,7 +390,8 @@ form .knopf { margin-top: var(--abstand-6); }
   .register { grid-template-columns: 1fr; }
   .register div { border-left: 0; }
   .register div + div { border-top: 3px solid var(--farbe-rolle-on-surface); }
-  .wahl-fakten div, .fakten div { grid-template-columns: 1fr; gap: 0; }
+  .wahl-fakten div, .fakten div, .weg-liste li { grid-template-columns: 1fr; gap: 0; }
+  .weg-bild { grid-column: 1 / -1; }
   .liste .pfeil { display: none; }
   .mobil-aktion { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 15; padding: var(--abstand-3) var(--abstand-4) calc(var(--abstand-3) + env(safe-area-inset-bottom)); background: var(--farbe-rolle-accent); color: var(--farbe-rolle-on-accent); text-align: center; text-decoration: none; font: italic 700 1.125rem/1.33 var(--titel); transition: transform var(--bewegung-dauer-mittel) var(--bewegung-kurve-standard); }
   .mobil-aktion:hover { color: var(--farbe-rolle-on-accent); }
