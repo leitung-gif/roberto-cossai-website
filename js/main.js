@@ -30,6 +30,84 @@
     aufrufe.forEach(function (a) { beobachter.observe(a); });
   }
 
+  // Hero-Film: nur mit Bewegung und ohne Datensparen, steht ausserhalb des Bilds still
+  var film = document.querySelector(".rahmen video");
+  var ruhig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var sparen = navigator.connection && navigator.connection.saveData;
+  if (film && !ruhig && !sparen) {
+    var filmKnopf = document.querySelector(".film-knopf");
+    var angehalten = false;
+    film.addEventListener("playing", function () { film.classList.add("laeuft"); filmKnopf.hidden = false; });
+    var spielen = function () { var p = film.play(); if (p) p.catch(function () {}); };
+    filmKnopf.addEventListener("click", function () {
+      angehalten = !angehalten;
+      if (angehalten) film.pause(); else spielen();
+      filmKnopf.classList.toggle("steht", angehalten);
+      filmKnopf.setAttribute("aria-label", angehalten ? "Film abspielen" : "Film anhalten");
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (x) {
+        if (angehalten) return;
+        if (x[0].isIntersecting) spielen(); else film.pause();
+      }).observe(film);
+    } else spielen();
+  }
+
+  // Stimmen: Knöpfe führen die Spur, Wischen und Tastatur gehen ohne sie
+  var spur = document.querySelector(".stimmen-spur");
+  if (spur) {
+    var steuerung = document.querySelector(".stimmen-steuerung");
+    var zahl = steuerung.querySelector(".stimmen-zahl");
+    var knoepfe = steuerung.querySelectorAll("button");
+    var karten = spur.children;
+    var stelle = 0;
+    var aktuell = function () {
+      var best = 0, abstand = Infinity;
+      for (var i = 0; i < karten.length; i++) {
+        var d = Math.abs(karten[i].offsetLeft - karten[0].offsetLeft - spur.scrollLeft);
+        if (d < abstand) { abstand = d; best = i; }
+      }
+      return best;
+    };
+    var melden = function () {
+      var i = aktuell();
+      var ende = spur.scrollLeft + spur.clientWidth >= spur.scrollWidth - 2;
+      if (ende) i = karten.length - 1;
+      stelle = i;
+      zahl.textContent = (i + 1) + " von " + karten.length;
+      knoepfe[0].disabled = spur.scrollLeft < 2;
+      knoepfe[1].disabled = ende;
+    };
+    steuerung.hidden = false;
+    knoepfe.forEach(function (k) {
+      k.addEventListener("click", function () {
+        var ziel = karten[Math.max(0, Math.min(karten.length - 1, stelle + Number(k.dataset.schritt)))];
+        spur.scrollTo({ left: ziel.offsetLeft - karten[0].offsetLeft, behavior: ruhig ? "auto" : "smooth" });
+      });
+    });
+    var wartet = false;
+    spur.addEventListener("scroll", function () {
+      if (wartet) return;
+      wartet = true;
+      requestAnimationFrame(function () { wartet = false; melden(); });
+    }, { passive: true });
+    melden();
+  }
+
+  // Tage bis zur Wahl, immer aktuell
+  document.querySelectorAll("[data-wahl]").forEach(function (x) {
+    var tage = Math.ceil((new Date(2027, 2, 21) - new Date()) / 864e5);
+    if (tage > 1) x.textContent = "noch " + tage + " Tage";
+    else if (tage === 1) x.textContent = "noch 1 Tag";
+    else x.textContent = "Wahltag";
+  });
+
+  // Kontakt: Thema aus dem Aufruf übernehmen, damit der erste Schritt schon getan ist
+  var ortFeld = document.getElementById("ort");
+  var themen = { digital: "Digitaler Kanton", wohnen: "Wohnen", gesundheit: "Gesundheit", sicherheit: "Sicher und erreichbar" };
+  var gewaehlt = new URLSearchParams(location.search).get("thema");
+  if (ortFeld && themen[gewaehlt]) ortFeld.value = themen[gewaehlt];
+
   var start = Date.now();
   document.querySelectorAll("form[data-modus]").forEach(function (form) {
     var antwort = form.querySelector(".antwort");
