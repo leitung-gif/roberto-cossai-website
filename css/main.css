@@ -252,12 +252,17 @@ a:hover { color: var(--farbe-rolle-accent); }
 .thema-frage { margin-top: var(--abstand-4); padding-top: var(--abstand-4); border-top: 3px solid var(--farbe-rolle-on-surface); }
 .thema-frage a { display: inline-block; margin-top: var(--abstand-2); font-weight: 600; }
 .partei { grid-column: 1 / span 8; font: 500 var(--gr-mittel)/1.25 var(--titel); }
+.thema-link { color: inherit; text-decoration: none; }
+.thema-link:hover { text-decoration: underline; }
+.thema-weiter { margin-top: var(--abstand-4); }
+.thema-weiter a { font-weight: 600; }
 
-.clips { grid-column: 1 / -1; display: grid; grid-template-columns: 5fr 4fr 3fr; gap: var(--spalte); align-items: end; }
-.clip-tafel { display: flex; align-items: flex-end; aspect-ratio: 9 / 13; padding: var(--abstand-6); font: italic 800 var(--gr-gross)/1 var(--titel); letter-spacing: -.01em; }
+/* Drei gleichwertige Tafeln: gleiche Breite, gleiche Höhe, gleiche Schrift. Keine Gewichtung (Roberto 07.11.2026). */
+.clips { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--spalte); align-items: start; }
+.clip-tafel { display: flex; align-items: flex-end; aspect-ratio: 4 / 5; padding: var(--abstand-6); font: italic 800 var(--gr-mittel)/1.05 var(--titel); letter-spacing: -.01em; overflow-wrap: break-word; }
 .clip:nth-child(1) .clip-tafel { background: var(--farbe-rolle-brand); color: var(--farbe-rolle-on-brand); }
 .clip:nth-child(2) .clip-tafel { background: var(--farbe-rolle-surface-invert); color: var(--farbe-rolle-on-invert); }
-.clip:nth-child(3) .clip-tafel { background: var(--farbe-rolle-accent); color: var(--farbe-rolle-on-accent); font-size: var(--gr-mittel); }
+.clip:nth-child(3) .clip-tafel { background: var(--farbe-rolle-accent); color: var(--farbe-rolle-on-accent); }
 .clip h3 { margin-top: var(--abstand-4); font-size: var(--gr-klein); }
 .clip p { margin-top: var(--abstand-2); max-width: 26em; }
 .abschnitt-titel { grid-column: 1 / -1; font-size: var(--gr-gross); margin-bottom: var(--abstand-12); }
@@ -296,6 +301,17 @@ a:hover { color: var(--farbe-rolle-accent); }
 .ablauf li::before { content: counter(schritt); font: 700 var(--gr-klein)/1.2 var(--titel); color: var(--farbe-rolle-accent); }
 .notruf { padding: var(--abstand-4); background: var(--farbe-rolle-surface-invert); color: var(--farbe-rolle-on-invert); }
 .notruf a { color: inherit; font-weight: 700; }
+.frei { font-weight: 400; color: var(--farbe-rolle-muted); }
+.pruef-hinweis { margin-block: var(--abstand-6) var(--abstand-4); font: 600 1.0625rem/1.4 var(--titel); }
+.meldungen-kopf { grid-column: 1 / span 7; }
+.meldungen-kopf h2 { font-size: var(--gr-gross); }
+.meldungen-kopf p { margin-top: var(--abstand-4); max-width: var(--mass); }
+.meldungen-leer { grid-column: 1 / span 7; margin-top: var(--abstand-8); padding-top: var(--abstand-4); border-top: 3px solid var(--farbe-rolle-on-surface); font: 500 var(--gr-klein)/1.35 var(--titel); }
+.meldungen { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: var(--spalte); margin-top: var(--abstand-8); }
+.meldung { padding-top: var(--abstand-4); border-top: 3px solid var(--farbe-rolle-on-surface); }
+.meldung-ort { font: 700 1.0625rem/1.4 var(--titel); }
+.meldung blockquote { margin-top: var(--abstand-2); font: 500 var(--gr-klein)/1.3 var(--titel); }
+.meldung-wer { margin-top: var(--abstand-3); font-size: var(--gr-fein); color: var(--farbe-rolle-muted); }
 .feld { margin-top: var(--abstand-6); }
 .feld:first-child { margin-top: 0; }
 label, .feld-titel { display: block; font: 600 1.0625rem/1.5 var(--titel); margin-bottom: var(--abstand-1); }
@@ -386,7 +402,7 @@ form .knopf { margin-top: var(--abstand-6); }
   .drei .zuruf { justify-self: start; text-align: left; margin-top: var(--abstand-3); }
   .clips { grid-template-columns: 1fr; }
   .clip-tafel { aspect-ratio: 3 / 2; }
-  .seitenkopf h1, .seitenkopf .einstieg, .zitat, .zitat-quelle, .partei { grid-column: 1 / -1; }
+  .seitenkopf h1, .seitenkopf .einstieg, .zitat, .zitat-quelle, .partei, .meldungen-kopf, .meldungen-leer { grid-column: 1 / -1; }
   .register { grid-template-columns: 1fr; }
   .register div { border-left: 0; }
   .register div + div { border-top: 3px solid var(--farbe-rolle-on-surface); }

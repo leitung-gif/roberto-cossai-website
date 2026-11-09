@@ -27,8 +27,8 @@
 <meta name="twitter:description" content="Säg mer, wo: Schreib Roberto Cossai dein Anliegen aus Luzern. Du bekommst eine Rückmeldung. Bei akuter Gefahr gilt der Notruf 117.">
 <meta name="twitter:image" content="https://leitung-gif.github.io/roberto-cossai-website/og.jpg">
 <link rel="preload" href="/roberto-cossai-website/schrift/jost.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/roberto-cossai-website/css/tokens.css?v=3a777f46">
-<link rel="stylesheet" href="/roberto-cossai-website/css/main.css?v=3a777f46">
+<link rel="stylesheet" href="/roberto-cossai-website/css/tokens.css?v=e8a8ff24">
+<link rel="stylesheet" href="/roberto-cossai-website/css/main.css?v=e8a8ff24">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://leitung-gif.github.io/roberto-cossai-website/"}, {"@type": "ListItem", "position": 2, "name": "Kontakt", "item": "https://leitung-gif.github.io/roberto-cossai-website/kontakt.html"}]}</script>
 </head>
 <body>
@@ -43,28 +43,37 @@
 <section class="flaeche-marke seitenkopf"><div class="raster">
 <nav class="brotkrume" aria-label="Brotkrume"><ol><li><a href="/roberto-cossai-website/">Start</a></li><li aria-current="page">Kontakt</li></ol></nav>
 <h1><span lang="gsw">Säg mer, wo.</span></h1>
-<p class="einstieg">Schreib mir, wo es klemmt. Dein Anliegen landet bei mir und meinem Team.</p>
+<p class="einstieg">Schreib mir, wo es klemmt. Einen Ort, an dem du nicht mehr gerne bist, oder ein Anliegen. Es landet bei mir und meinem Team.</p>
 </div></section>
 
 <section class="abschnitt"><div class="raster">
 <div class="kontakt-form">
-<form action="/roberto-cossai-website/api/anliegen" method="post" data-modus="prototyp" data-danke="Danke. Wir melden uns bei dir." novalidate>
-<div class="feld"><label for="ort">Ort oder Thema</label><input id="ort" name="ort" type="text" required data-meldung="Sag mir kurz, wo oder worum es geht."><p class="fehler" data-fehler="ort"></p></div>
-<div class="feld"><label for="anliegen">Dein Anliegen</label><p class="hilfe" id="anliegen-hilfe">In deinen Worten. Veröffentlicht wird nichts ohne deine Zustimmung.</p><textarea id="anliegen" name="anliegen" aria-describedby="anliegen-hilfe" required data-meldung="Schreib mir bitte, was du erlebt hast."></textarea><p class="fehler" data-fehler="anliegen"></p></div>
+<form action="mailto:hallo@robertocossai.ch?subject=S%C3%A4g%20mer%2C%20wo" method="post" enctype="text/plain" data-modus="mail" data-mail="hallo@robertocossai.ch" data-danke="Dein Mailprogramm öffnet sich mit deiner Nachricht an hallo@robertocossai.ch." novalidate>
+<div class="feld"><label for="ort">Ort oder Anliegen</label><input id="ort" name="ort" type="text" required data-meldung="Sag mir kurz, wo oder worum es geht."><p class="fehler" data-fehler="ort"></p></div>
+<div class="feld"><label for="anliegen">Was ist dort los?</label><p class="hilfe" id="anliegen-hilfe">In deinen Worten. Veröffentlicht wird nichts ohne deine Zustimmung.</p><textarea id="anliegen" name="anliegen" aria-describedby="anliegen-hilfe" required data-meldung="Schreib mir bitte, was du erlebt hast."></textarea><p class="fehler" data-fehler="anliegen"></p></div>
 <div class="feld"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required data-meldung="Bitte gib deinen Namen an."><p class="fehler" data-fehler="name"></p></div>
+<div class="feld"><label for="quartier">Quartier <span class="frei">freiwillig</span></label><input id="quartier" name="quartier" type="text" autocomplete="address-level3"></div>
 <div class="feld"><label for="email">E-Mail-Adresse</label><input id="email" name="email" type="email" autocomplete="email" required data-meldung="Bitte gib eine gültige E-Mail-Adresse ein."><p class="fehler" data-fehler="email"></p></div>
+<div class="feld wahl"><input id="oeffentlich" name="oeffentlich" type="checkbox"><label for="oeffentlich">Meine Rückmeldung darf nach Prüfung mit Vorname und Quartier auf dieser Website erscheinen.</label></div>
 <div class="feld wahl"><input id="rueckfrage" name="rueckfrage" type="checkbox" checked><label for="rueckfrage">Ihr dürft bei mir nachfragen.</label></div>
 <div class="topf" aria-hidden="true"><label for="web">Website</label><input id="web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="pruef-hinweis">Wir lesen alles, ausgewählte Rückmeldungen erscheinen nach Prüfung.</p>
 <button class="knopf" type="submit">Anliegen senden</button><p class="antwort" role="status"></p>
 <p class="hilfe" style="margin-top:var(--abstand-4)">Wie wir mit deinen Angaben umgehen, steht im <a href="/roberto-cossai-website/datenschutz.html">Datenschutz</a>.</p>
 </form></div>
 <div class="kontakt-seite">
-<section class="ablauf"><h2>So geht es weiter</h2><ol><li>Ich lese, was du schreibst.</li><li>Du hörst von mir oder meinem Team.</li><li>Du erfährst, was daraus wird. Auch wenn es ernüchtert.</li></ol></section>
+<section class="ablauf"><h2>So geht es weiter</h2><ol><li>Ich lese, was du schreibst.</li><li>Du hörst von mir oder meinem Team.</li><li>Du erfährst, was daraus wird. Auch wenn es ernüchtert.</li><li>Mit deinem Okay erscheint deine Rückmeldung nach Prüfung unter «Gesagt in Luzern».</li></ol></section>
 <section class="notruf"><h2>Akute Gefahr?</h2><p>Ruf den Notruf <a href="tel:117">117</a> an. Der Kontakt zur Kampagne ersetzt ihn nicht.</p></section>
 <section><h2>Direkt</h2><p><a href="mailto:hallo@robertocossai.ch">hallo@robertocossai.ch</a></p><p><a href="https://www.linkedin.com/in/roberto-cossai/" rel="me">LinkedIn</a></p></section>
 <section><h2>Für die Medien</h2><p><a href="/roberto-cossai-website/medien.html">Porträt und Kurzbiografie</a></p></section>
 </div>
 </div></section>
+<section class="flaeche-nebel abschnitt" id="gesagt" aria-labelledby="gesagt-titel"><div class="raster">
+<div class="meldungen-kopf"><h2 id="gesagt-titel">Gesagt in Luzern.</h2>
+<p>Wir lesen alles, ausgewählte Rückmeldungen erscheinen nach Prüfung. Mit Vorname und Quartier, nur wenn du zustimmst.</p></div>
+<p class="meldungen-leer">Die ersten Rückmeldungen erscheinen hier, sobald wir sie geprüft haben.</p>
+</div></section>
+
 </main>
 <footer class="fuss"><div class="raster">
 <div class="fuss-marke"><img src="/roberto-cossai-website/logo/wortmarke-weiss.svg" width="660" height="200" alt="Roberto Cossai" loading="lazy">
@@ -72,12 +81,13 @@
 <nav class="fuss-links" aria-label="Fussnavigation"><ul>
 <li><a href="mailto:hallo@robertocossai.ch">hallo@robertocossai.ch</a></li>
 <li><a href="https://www.linkedin.com/in/roberto-cossai/" rel="me">LinkedIn</a></li>
+<li><a href="/roberto-cossai-website/medien.html">Medien</a></li>
 <li><a href="/roberto-cossai-website/impressum.html">Impressum</a></li>
 <li><a href="/roberto-cossai-website/datenschutz.html">Datenschutz</a></li>
 </ul></nav>
 <div class="fuss-fdp"><img src="/roberto-cossai-website/logo/fdp-logo-weiss.png" width="347" height="106" alt="FDP" loading="lazy"></div>
 </div></footer>
 <a class="mobil-aktion" href="/roberto-cossai-website/kontakt.html" lang="gsw">Säg mer, wo.</a>
-<script src="/roberto-cossai-website/js/main.js?v=3a777f46" defer></script>
+<script src="/roberto-cossai-website/js/main.js?v=e8a8ff24" defer></script>
 </body>
 </html>

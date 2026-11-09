@@ -118,6 +118,16 @@
       if (!gut) return;
       var topf = form.querySelector(".topf input");
       if ((topf && topf.value) || Date.now() - start < 2000) return;
+      if (form.dataset.modus === "mail") {
+        // Entwurf ohne Server: Nachricht an das Postfach, veröffentlicht wird nur nach Prüfung
+        var wert = function (id) { var f = form.querySelector("#" + id); return f ? (f.type === "checkbox" ? (f.checked ? "ja" : "nein") : f.value.trim()) : ""; };
+        var text = "Ort oder Anliegen: " + wert("ort") + "\n\n" + wert("anliegen") + "\n\nName: " + wert("name") +
+          "\nQuartier: " + wert("quartier") + "\nE-Mail: " + wert("email") +
+          "\nDarf nach Prüfung erscheinen: " + wert("oeffentlich") + "\nNachfragen erlaubt: " + wert("rueckfrage");
+        location.href = "mailto:" + form.dataset.mail + "?subject=" + encodeURIComponent("Säg mer, wo: " + wert("ort")) + "&body=" + encodeURIComponent(text);
+        antwort.textContent = form.dataset.danke;
+        return;
+      }
       if (form.dataset.modus === "prototyp") {
         antwort.textContent = form.dataset.danke + " (Vorschau: nichts wurde gesendet.)";
         form.reset();

@@ -3,6 +3,13 @@
 > Roberto Cossai kandidiert am 21.03.2027 für den Kantonsrat des Kantons Luzern, Wahlkreis Luzern-Stadt, FDP.Die Liberalen Stadt Luzern, Liste 4.
 
 - [Positionen](https://leitung-gif.github.io/roberto-cossai-website/positionen.html): Wohnen, funktionierender Staat, Gesundheit, Sicherheit, Finanzen, Bildung, Erreichbarkeit
+- [Wohnen](https://leitung-gif.github.io/roberto-cossai-website/positionen/wohnen.html): Mehr Wohnraum und mehr Auswahl nehmen den Druck von Mieten und Kaufpreisen.
+- [Ein Staat, der funktioniert](https://leitung-gif.github.io/roberto-cossai-website/positionen/digital.html): Wer etwas vom Kanton braucht, soll es einfach erledigen können.
+- [Gesundheit](https://leitung-gif.github.io/roberto-cossai-website/positionen/gesundheit.html): Die Versorgung muss gut sein und bezahlbar bleiben.
+- [Sicherheit](https://leitung-gif.github.io/roberto-cossai-website/positionen/sicherheit.html): Freiheit braucht Schutz vor Gewalt und Einschüchterung.
+- [Finanzen](https://leitung-gif.github.io/roberto-cossai-website/positionen/finanzen.html): Heute stärken, ohne morgen zu schwächen.
+- [Bildung](https://leitung-gif.github.io/roberto-cossai-website/positionen/bildung.html): Gute Bildung legt niemanden auf den ersten Entscheid fest.
+- [Erreichbarkeit](https://leitung-gif.github.io/roberto-cossai-website/positionen/erreichbarkeit.html): Stadt und Kanton müssen gut erreichbar bleiben.
 - [Über mich](https://leitung-gif.github.io/roberto-cossai-website/ueber-mich.html): Haltung, Beruf, Engagement
 - [Medien](https://leitung-gif.github.io/roberto-cossai-website/medien.html): Porträt und Kurzbiografie
 - [Kontakt](https://leitung-gif.github.io/roberto-cossai-website/kontakt.html): Anliegen schreiben
