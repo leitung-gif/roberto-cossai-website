@@ -1,4 +1,5 @@
 User-agent: *
 Disallow: /
+Disallow: /executive/
 
 Sitemap: https://leitung-gif.github.io/roberto-cossai-website/sitemap.xml

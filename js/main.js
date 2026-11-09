@@ -88,6 +88,20 @@
     melden();
   }
 
+  // Luzerner Punktfahne: bewegt erst im Bild, unter reduzierter Bewegung bleibt die stille Fassung
+  var fahne = document.querySelector(".fahne video");
+  if (fahne && !ruhig && "IntersectionObserver" in window) {
+    var basis = document.documentElement.dataset.basis || "";
+    new IntersectionObserver(function (eintraege, b) {
+      if (!eintraege[0].isIntersecting) return;
+      b.disconnect();
+      fahne.src = basis + fahne.dataset.video;
+      fahne.addEventListener("playing", function () { fahne.parentNode.classList.add("laeuft"); }, { once: true });
+      var p = fahne.play();
+      if (p && p.catch) p.catch(function () { /* Autoplay gesperrt: still bleiben */ });
+    }, { rootMargin: "200px" }).observe(fahne.parentNode);
+  }
+
   // Tage bis zur Wahl, immer aktuell
   document.querySelectorAll("[data-wahl]").forEach(function (x) {
     var tage = Math.ceil((new Date(2027, 2, 21) - new Date()) / 864e5);
@@ -98,7 +112,8 @@
 
   // Kontakt: Thema aus dem Aufruf übernehmen, damit der erste Schritt schon getan ist
   var ortFeld = document.getElementById("ort");
-  var themen = { wohnen: "Wohnen", digital: "Ein Staat, der funktioniert", gesundheit: "Gesundheit", sicherheit: "Sicherheit", finanzen: "Finanzen", bildung: "Bildung", erreichbarkeit: "Erreichbarkeit" };
+  var liste = document.getElementById("themen-liste");
+  var themen = liste ? JSON.parse(liste.textContent) : {};
   var gewaehlt = new URLSearchParams(location.search).get("thema");
   if (ortFeld && themen[gewaehlt]) ortFeld.value = themen[gewaehlt];
 

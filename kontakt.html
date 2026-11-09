@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH">
+<html lang="de-CH" data-basis="/roberto-cossai-website">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,8 +27,8 @@
 <meta name="twitter:description" content="Säg mer, wo: Schreib Roberto Cossai dein Anliegen aus Luzern. Du bekommst eine Rückmeldung. Bei akuter Gefahr gilt der Notruf 117.">
 <meta name="twitter:image" content="https://leitung-gif.github.io/roberto-cossai-website/og.jpg">
 <link rel="preload" href="/roberto-cossai-website/schrift/jost.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/roberto-cossai-website/css/tokens.css?v=3db38514">
-<link rel="stylesheet" href="/roberto-cossai-website/css/main.css?v=3db38514">
+<link rel="stylesheet" href="/roberto-cossai-website/css/tokens.css?v=3bc4d24f">
+<link rel="stylesheet" href="/roberto-cossai-website/css/main.css?v=3bc4d24f">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://leitung-gif.github.io/roberto-cossai-website/"}, {"@type": "ListItem", "position": 2, "name": "Kontakt", "item": "https://leitung-gif.github.io/roberto-cossai-website/kontakt.html"}]}</script>
 </head>
 <body>
@@ -57,7 +57,7 @@
 <div class="feld wahl"><input id="oeffentlich" name="oeffentlich" type="checkbox"><label for="oeffentlich">Meine Rückmeldung darf nach Prüfung mit Vorname und Quartier auf dieser Website erscheinen.</label></div>
 <div class="feld wahl"><input id="rueckfrage" name="rueckfrage" type="checkbox" checked><label for="rueckfrage">Ihr dürft bei mir nachfragen.</label></div>
 <div class="topf" aria-hidden="true"><label for="web">Website</label><input id="web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
-<p class="pruef-hinweis">Wir lesen alles, ausgewählte Rückmeldungen erscheinen nach Prüfung.</p>
+<p class="pruef-hinweis" data-cms-text="hinweis_pruefung">Wir lesen alles, ausgewählte Rückmeldungen erscheinen nach Prüfung.</p>
 <button class="knopf" type="submit">Anliegen senden</button><p class="antwort" role="status"></p>
 <p class="hilfe" style="margin-top:var(--abstand-4)">Wie wir mit deinen Angaben umgehen, steht im <a href="/roberto-cossai-website/datenschutz.html">Datenschutz</a>.</p>
 </form></div>
@@ -68,12 +68,13 @@
 <section><h2>Für die Medien</h2><p><a href="/roberto-cossai-website/medien.html">Porträt und Kurzbiografie</a></p></section>
 </div>
 </div></section>
-<section class="flaeche-nebel abschnitt" id="gesagt" aria-labelledby="gesagt-titel"><div class="raster">
+<section class="flaeche-nebel abschnitt" id="gesagt" aria-labelledby="gesagt-titel" data-cms="gesagt-abschnitt" data-modus="vorschau"><div class="raster">
 <div class="meldungen-kopf"><h2 id="gesagt-titel">Gesagt in Luzern.</h2>
 <p>Wir lesen alles, ausgewählte Rückmeldungen erscheinen nach Prüfung. Mit Vorname und Quartier, nur wenn du zustimmst.</p></div>
-<p class="meldungen-leer">Die ersten Rückmeldungen erscheinen hier, sobald wir sie geprüft haben.</p>
+<div data-cms="gesagt"><p class="meldungen-leer" data-cms-text="rueckmeldungen_leer">Die ersten Rückmeldungen erscheinen hier, sobald wir sie geprüft haben.</p></div>
 </div></section>
 
+<script type="application/json" id="themen-liste">{"wohnen": "Wohnen", "digital": "Ein Staat, der funktioniert", "gesundheit": "Gesundheit", "sicherheit": "Sicherheit", "finanzen": "Finanzen", "bildung": "Bildung", "erreichbarkeit": "Erreichbarkeit"}</script>
 </main>
 <footer class="fuss"><div class="raster">
 <div class="fuss-marke"><img src="/roberto-cossai-website/logo/35_roberto-cossai-wortmarke-transparent-fuer-dunkel.svg" width="760" height="285" alt="Roberto Cossai" loading="lazy">
@@ -81,6 +82,7 @@
 <nav class="fuss-links" aria-label="Fussnavigation"><ul>
 <li><a href="mailto:hallo@robertocossai.ch">hallo@robertocossai.ch</a></li>
 <li><a href="https://www.linkedin.com/in/roberto-cossai/" rel="me">LinkedIn</a></li>
+<li data-cms-instagram hidden></li>
 <li><a href="/roberto-cossai-website/medien.html">Medien</a></li>
 <li><a href="/roberto-cossai-website/impressum.html">Impressum</a></li>
 <li><a href="/roberto-cossai-website/datenschutz.html">Datenschutz</a></li>
@@ -88,6 +90,7 @@
 <div class="fuss-fdp"><img src="/roberto-cossai-website/logo/fdp-logo-weiss.png" width="347" height="106" alt="FDP" loading="lazy"></div>
 </div></footer>
 <a class="mobil-aktion" href="/roberto-cossai-website/kontakt.html" lang="gsw">Säg mer, wo.</a>
-<script src="/roberto-cossai-website/js/main.js?v=3db38514" defer></script>
+<script src="/roberto-cossai-website/js/main.js?v=3bc4d24f" defer></script>
+<script src="/roberto-cossai-website/js/cms.js?v=3bc4d24f" defer></script>
 </body>
 </html>
