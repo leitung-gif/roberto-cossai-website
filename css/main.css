@@ -49,7 +49,13 @@ a:hover { color: var(--farbe-rolle-accent); }
 .kopf { position: sticky; top: 0; z-index: 20; background: var(--farbe-rolle-surface); border-bottom: 1px solid var(--farbe-rolle-line); }
 .kopf-innen { display: flex; align-items: center; gap: var(--abstand-8); min-height: var(--kopf); padding-inline: var(--rand); max-width: 1520px; margin-inline: auto; }
 .kopf-marke { flex: none; display: block; padding-block: var(--abstand-2); }
-.kopf-marke img { width: 150px; max-width: none; margin-left: -12px; } /* Wortmarke 36, Mindestbreite 120 px. Freiraum der Datei 8.2 % links, bündig zur Kante */
+.kopf-marke img { display: block; max-width: none; }
+/* Hauptlogo 24 mit Rahmen und Fahne. Die Datei hat Freiraum: links 13.8 %, oben 17 %, rechts 17.6 %, unten 18.3 %.
+   Bei 176 px Datei ist das Logo selbst rund 120 px breit (Mindestbreite laut Markenguide). */
+.kopf-marke .kopf-logo { width: 176px; margin: -20px -31px -22px -24px; }
+.kopf-marke .kopf-mono { display: none; width: 52px; margin: -5px -5px -5px -5px; } /* Monogramm 87, ab 32 px erlaubt */
+.kopf.kompakt .kopf-marke .kopf-logo { display: none; }
+.kopf.kompakt .kopf-marke .kopf-mono { display: block; }
 .nav { margin-left: auto; }
 .nav ul { display: flex; gap: var(--abstand-6); }
 .nav a { display: block; padding-block: var(--abstand-3); font: 500 1.0625rem/1.2 var(--titel); color: var(--farbe-rolle-on-surface); text-decoration: none; border-bottom: 2px solid transparent; }
@@ -367,7 +373,7 @@ form .knopf { margin-top: var(--abstand-6); }
 .fuss { padding-block: var(--abstand-16) var(--abstand-12); background: var(--farbe-rolle-on-surface); color: var(--farbe-rolle-surface); }
 .fuss a { color: inherit; }
 .fuss-marke { grid-column: 1 / span 5; }
-.fuss-marke img { width: 220px; max-width: none; margin-left: -18px; } /* Wortmarke 35 */
+.fuss-marke img { width: 220px; max-width: none; margin: -37px 0 -26px -30px; } /* Hauptlogo 23 für dunkel, Freiraum der Datei ausgeglichen */
 .fuss-marke p { margin-top: var(--abstand-4); max-width: 26em; }
 .fuss-links { grid-column: 7 / span 3; }
 .fuss-links a { display: inline-block; padding-block: var(--abstand-2); }
@@ -409,7 +415,8 @@ form .knopf { margin-top: var(--abstand-6); }
   .thema { padding-block: var(--abstand-16); }
   .kopf-innen { gap: var(--abstand-4); }
   .kopf-fdp { margin-left: auto; width: 60px; }
-  .kopf-marke img { width: 128px; margin-left: -10px; }
+  .kopf-marke .kopf-logo { display: none; }
+  .kopf-marke .kopf-mono { display: block; width: 48px; }
   .menue-knopf { display: inline-flex; align-items: center; min-height: 44px; padding-inline: var(--abstand-3); background: none; border: 2px solid var(--farbe-rolle-on-surface); font: 600 1rem/1 var(--titel); color: inherit; cursor: pointer; }
   .js .nav { display: none; }
   .nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--farbe-rolle-surface); border-bottom: 3px solid var(--farbe-rolle-on-surface); padding: var(--abstand-2) var(--rand) var(--abstand-4); }

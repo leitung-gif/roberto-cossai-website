@@ -159,3 +159,17 @@
     });
   });
 })();
+
+/* Kopf: oben das Hauptlogo, nach dem Scrollen das Monogramm. Hysterese gegen Flackern. */
+(function () {
+  var kopf = document.querySelector(".kopf");
+  if (!kopf) return;
+  var kompakt = false;
+  function pruefe() {
+    var y = window.scrollY || 0;
+    if (!kompakt && y > 160) { kompakt = true; kopf.classList.add("kompakt"); }
+    else if (kompakt && y < 40) { kompakt = false; kopf.classList.remove("kompakt"); }
+  }
+  window.addEventListener("scroll", pruefe, { passive: true });
+  pruefe();
+})();
