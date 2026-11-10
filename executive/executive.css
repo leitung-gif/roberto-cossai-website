@@ -119,3 +119,5 @@ html[data-sprache="de"] .sp-en, html[data-sprache="en"] .sp-de { display: none; 
   .x-marke { width: 120px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.x-recht { display: flex; gap: 20px; margin-top: 16px; font-size: .875rem; }
+.x-recht a { color: inherit; }

@@ -1,24 +1,24 @@
 {
  "name": "Roberto Cossai",
  "short_name": "Cossai",
- "start_url": "/",
+ "start_url": "/roberto-cossai-website/",
  "display": "standalone",
  "theme_color": "#00a0e2",
  "background_color": "#ffffff",
  "lang": "de-CH",
  "icons": [
   {
-   "src": "/icon-192.png",
+   "src": "/roberto-cossai-website/icon-192.png",
    "sizes": "192x192",
    "type": "image/png"
   },
   {
-   "src": "/icon-512.png",
+   "src": "/roberto-cossai-website/icon-512.png",
    "sizes": "512x512",
    "type": "image/png"
   },
   {
-   "src": "/icon-maskable-512.png",
+   "src": "/roberto-cossai-website/icon-maskable-512.png",
    "sizes": "512x512",
    "type": "image/png",
    "purpose": "maskable"

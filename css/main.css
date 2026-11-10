@@ -1,7 +1,7 @@
 /* Roberto Cossai. Modus M5 Plakativ, Farben und Schriften nach FDP-Styleguide 1.4. */
-@font-face { font-family: "Jost"; src: url("/schrift/jost.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
-@font-face { font-family: "Jost"; src: url("/schrift/jost-kursiv.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
-@font-face { font-family: "Source Sans 3"; src: url("/schrift/source-sans.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("/roberto-cossai-website/schrift/jost.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("/roberto-cossai-website/schrift/jost-kursiv.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("/roberto-cossai-website/schrift/source-sans.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
 @font-face { font-family: "Jost Ersatz"; src: local("Arial"), local("Roboto"); size-adjust: 96%; ascent-override: 104%; descent-override: 36%; line-gap-override: 0%; }
 @font-face { font-family: "Text Ersatz"; src: local("Arial"), local("Roboto"); size-adjust: 92%; ascent-override: 106%; descent-override: 30%; line-gap-override: 0%; }
 
@@ -339,7 +339,8 @@ a:hover { color: var(--farbe-rolle-accent); }
 .meldungen-kopf { grid-column: 1 / span 7; }
 .meldungen-kopf h2 { font-size: var(--gr-gross); }
 .meldungen-kopf p { margin-top: var(--abstand-4); max-width: var(--mass); }
-.meldungen-leer { grid-column: 1 / span 7; margin-top: var(--abstand-8); padding-top: var(--abstand-4); border-top: 3px solid var(--farbe-rolle-on-surface); font: 500 var(--gr-klein)/1.35 var(--titel); }
+#gesagt [data-cms="gesagt"] { grid-column: 1 / -1; }
+.meldungen-leer { max-width: var(--mass); margin-top: var(--abstand-8); padding-top: var(--abstand-4); border-top: 3px solid var(--farbe-rolle-on-surface); font: 500 var(--gr-klein)/1.35 var(--titel); }
 .meldungen { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: var(--spalte); margin-top: var(--abstand-8); }
 .meldung { padding-top: var(--abstand-4); border-top: 3px solid var(--farbe-rolle-on-surface); }
 .meldung-ort { font: 700 1.0625rem/1.4 var(--titel); }
