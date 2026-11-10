@@ -114,9 +114,9 @@ a:hover { color: var(--farbe-rolle-accent); }
 .drei-kopf h2 { font-size: var(--gr-gross); }
 .drei { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; }
 .drei li { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; padding-block: var(--abstand-8); border-top: 3px solid var(--farbe-rolle-on-surface); align-items: baseline; }
-.drei h3 { grid-column: 1 / span 5; font-size: var(--gr-mittel); }
-.drei p { grid-column: 6 / span 4; max-width: var(--mass); }
-.drei .zuruf { grid-column: 10 / span 3; justify-self: end; font-size: var(--gr-klein); line-height: 1.5; text-align: right; }
+.drei h3 { grid-column: 1 / span 4; font-size: var(--gr-mittel); }
+.drei p { grid-column: 5 / span 4; max-width: var(--mass); }
+.drei .zuruf { grid-column: 9 / span 4; justify-self: end; font-size: var(--gr-klein); line-height: 1.5; text-align: right; }
 
 /* Klartext, nur Schrift */
 .klartext { padding-block: var(--abstand-32); }
@@ -129,7 +129,7 @@ a:hover { color: var(--farbe-rolle-accent); }
 .mission-kopf { grid-column: 1 / span 7; }
 .mission-kopf h2 { font-size: var(--gr-gross); }
 .mission-zeile { margin-top: var(--abstand-6); font: 600 var(--gr-klein)/1.25 var(--titel); color: var(--farbe-rolle-surface-invert); }
-.zukunft { grid-column: 9 / -1; align-self: end; }
+.zukunft { grid-column: 9 / -1; align-self: start; padding-top: 0.55em; }
 .zukunft h3 { font-size: var(--gr-klein); margin-bottom: var(--abstand-3); }
 .zukunft li { padding-block: var(--abstand-3); border-top: 1px solid var(--farbe-rolle-line); }
 
@@ -289,7 +289,7 @@ a:hover { color: var(--farbe-rolle-accent); }
 .berichte strong { font-family: var(--titel); }
 
 /* Luzerner Punktfahne aus dem Markenpaket (46 still, 71 bewegt). Weiss oben, blau unten, nie umfärben. */
-.fahne { grid-column: 1 / -1; position: relative; aspect-ratio: 5 / 1; margin-bottom: var(--abstand-16); }
+.fahne { grid-column: 1 / span 5; width: 100%; max-width: 30rem; position: relative; aspect-ratio: 5 / 1; margin-bottom: var(--abstand-8); }
 .fahne img, .fahne video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .fahne video { opacity: 0; transition: opacity var(--bewegung-dauer-mittel) var(--bewegung-kurve-standard); }
 .fahne.laeuft video { opacity: 1; }
@@ -434,7 +434,7 @@ form .knopf { margin-top: var(--abstand-6); }
   .folgen { grid-template-columns: 1fr 1fr; }
   .folge { min-height: 7.5rem; }
   .anlass { grid-template-columns: 1fr; gap: 0; }
-  .fahne { margin-bottom: var(--abstand-8); }
+  .fahne { grid-column: 1 / -1; max-width: 70%; margin-bottom: var(--abstand-6); }
   .register { grid-template-columns: 1fr; }
   .register div { border-left: 0; }
   .register div + div { border-top: 3px solid var(--farbe-rolle-on-surface); }
