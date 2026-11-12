@@ -138,7 +138,7 @@
         var wert = function (id) { var f = form.querySelector("#" + id); return f ? (f.type === "checkbox" ? (f.checked ? "ja" : "nein") : f.value.trim()) : ""; };
         var text = "Ort oder Anliegen: " + wert("ort") + "\n\n" + wert("anliegen") + "\n\nName: " + wert("name") +
           "\nQuartier: " + wert("quartier") + "\nE-Mail: " + wert("email") +
-          "\nDarf nach Prüfung erscheinen: " + wert("oeffentlich") + "\nNachfragen erlaubt: " + wert("rueckfrage");
+          "\nDarf nach Prüfung erscheinen: " + wert("oeffentlich") + "\nOhne Namen veröffentlichen: " + wert("ohne_namen") + "\nNachfragen erlaubt: " + wert("rueckfrage");
         location.href = "mailto:" + form.dataset.mail + "?subject=" + encodeURIComponent("Säg mer, wo: " + wert("ort")) + "&body=" + encodeURIComponent(text);
         antwort.textContent = form.dataset.danke;
         return;
