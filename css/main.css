@@ -307,6 +307,12 @@ a:hover { color: var(--farbe-rolle-accent); }
 .person-text strong { font-family: var(--titel); }
 .person-text h2 { font-size: var(--gr-mittel); margin-bottom: var(--abstand-4); }
 .person-text p + h2 { margin-top: var(--abstand-12); }
+.weg-text p { margin-top: var(--abstand-6); max-width: 36em; }
+.person-titel { grid-column: 1 / span 5; font-size: var(--gr-gross); }
+.person-foto { grid-column: 1 / span 5; align-self: start; }
+.person-foto img { display: block; width: 100%; height: auto; }
+.person-weiter a { font-weight: 600; }
+.person-schluss { font: 700 var(--gr-klein)/1.25 var(--titel); }
 .zitat { grid-column: 1 / span 9; font: 500 var(--gr-mittel)/1.2 var(--titel); }
 .zitat-quelle { grid-column: 1 / span 9; margin-top: var(--abstand-4); }
 .fakten { grid-column: 1 / span 8; }
@@ -398,7 +404,7 @@ form .knopf { margin-top: var(--abstand-6); }
   .drei h3 { grid-column: 1 / -1; }
   .drei p { grid-column: 1 / span 8; margin-top: var(--abstand-3); }
   .drei .zuruf { grid-column: 9 / -1; }
-  .liste-kopf, .liste, .wahl-kopf, .wahl-fakten, .register-kopf, .register-text, .thema h2, .thema-text, .person-bild, .person-text, .medien-bio, .medien-downloads, .kontakt-form, .kontakt-seite, .tabelle, .folgen, .anlaesse, .formate, .news, .schluss-text, .fakten, .blatt { grid-column: 1 / -1; }
+  .liste-kopf, .liste, .wahl-kopf, .wahl-fakten, .register-kopf, .register-text, .thema h2, .thema-text, .person-bild, .person-text, .person-titel, .person-foto, .medien-bio, .medien-downloads, .kontakt-form, .kontakt-seite, .tabelle, .folgen, .anlaesse, .formate, .news, .schluss-text, .fakten, .blatt { grid-column: 1 / -1; }
   .liste, .wahl-fakten, .register-text, .thema-text, .person-text, .medien-downloads, .kontakt-seite, .formate { margin-top: var(--abstand-8); }
   .register { grid-template-columns: repeat(2, 1fr); }
   .register div:nth-child(3) { border-left: 0; }
