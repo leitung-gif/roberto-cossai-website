@@ -9,7 +9,7 @@
 - [Sicherheit](https://leitung-gif.github.io/roberto-cossai-website/positionen/sicherheit.html): Freiheit braucht Schutz vor Gewalt und Einschüchterung.
 - [Finanzen](https://leitung-gif.github.io/roberto-cossai-website/positionen/finanzen.html): Heute stärken, ohne morgen zu schwächen.
 - [Bildung](https://leitung-gif.github.io/roberto-cossai-website/positionen/bildung.html): Gute Bildung legt niemanden auf den ersten Entscheid fest.
-- [Erreichbarkeit](https://leitung-gif.github.io/roberto-cossai-website/positionen/erreichbarkeit.html): Stadt und Kanton müssen gut erreichbar bleiben.
+- [Erreichbarkeit](https://leitung-gif.github.io/roberto-cossai-website/positionen/erreichbarkeit.html): Zu Fuss, mit Mikromobilität vom Velo bis zum E-Trottinett, mit Bus und Bahn oder mit dem Auto: Alle sollen sicher und verlässlich ans Ziel kommen.
 - [Über mich](https://leitung-gif.github.io/roberto-cossai-website/ueber-mich.html): Haltung, Beruf, Engagement
 - [Medien](https://leitung-gif.github.io/roberto-cossai-website/medien.html): Porträt und Kurzbiografie
 - [Kontakt](https://leitung-gif.github.io/roberto-cossai-website/kontakt.html): Anliegen schreiben
