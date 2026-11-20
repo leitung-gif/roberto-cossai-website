@@ -140,8 +140,12 @@ a:hover { color: var(--farbe-rolle-accent); }
 .zukunft li { padding-block: var(--abstand-3); border-top: 1px solid var(--farbe-rolle-line); }
 
 /* Mein Weg */
-.weg-bild { grid-column: 1 / span 4; }
-.weg-text { grid-column: 6 / -1; align-self: center; }
+.weg-bild { grid-column: 1 / span 6; }
+.weg-text { grid-column: 8 / -1; align-self: center; }
+.freisteller { background: var(--farbe-rolle-tint); padding: var(--abstand-12) var(--abstand-8) 0; display: flex; align-items: flex-end; justify-content: center; }
+.freisteller picture { display: block; width: 100%; max-width: 560px; }
+.freisteller img { display: block; width: 100%; height: auto; }
+.weg-logo { display: block; width: 136px; height: auto; margin-bottom: var(--abstand-6); }
 .weg-text h2 { font-size: var(--gr-gross); }
 .weg-text blockquote { margin-top: var(--abstand-6); max-width: 36em; font: 500 var(--gr-klein)/1.35 var(--titel); }
 .weg-text a { display: inline-block; margin-top: var(--abstand-6); font-weight: 600; }
@@ -398,7 +402,7 @@ form .knopf { margin-top: var(--abstand-6); }
   .themen-wahl { grid-column: 1 / -1; margin-top: var(--abstand-8); }
   .mission-kopf, .zukunft, .weg-text { grid-column: 1 / -1; }
   .zukunft, .weg-text { margin-top: var(--abstand-8); }
-  .weg-bild { grid-column: 3 / span 8; }
+  .weg-bild { grid-column: 2 / span 10; }
   .stimme { flex-basis: 82%; }
   .rahmen { max-height: none; }
   .drei h3 { grid-column: 1 / -1; }
