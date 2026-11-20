@@ -34,17 +34,40 @@
   function thema(x) {
     return { id: x.slug, titel: x.titel || "", start: !!x.startseite, frage: x.frage || "", zuruf: x.zuruf || "Säg mer, wie.", kern: x.kern || "",
       kurz: x.kurztext || "", stehe: x.langtext || "", belegt: x.belegt || "", qn: x.quelleName || "", ql: url(x.quelleLink),
-      abwaegung: x.abwaegung || "", preis: x.preis || "", voran: x.naechsterSchritt || "" };
+      abwaegung: x.abwaegung || "", preis: x.preis || "", voran: x.naechsterSchritt || "",
+      uebersicht: x.uebersichtKernsatz || "", belege: belegeMarkup(x.belegeMitQuellen) };
   }
-  function gesundheitVollstaendig(t) {
-    return t.titel && t.kern && t.kurz && t.stehe && t.belegt && t.qn && t.ql &&
-      t.abwaegung && t.voran && t.frage && t.zuruf === "Säg mer, wo.";
+  function belegeMarkup(inhalt) {
+    if (typeof inhalt !== "string" || !inhalt) return "";
+    var vorlage = document.createElement("template");
+    vorlage.innerHTML = inhalt;
+    return Array.from(vorlage.content.children).filter(function (p) {
+      return p.tagName === "P" && p.textContent.trim();
+    }).map(function (p) {
+      var quellen = p.querySelector("a") && Array.from(p.childNodes).every(function (knoten) {
+        return knoten.nodeName === "A" || /^[\s·]*$/.test(knoten.textContent);
+      });
+      var text = Array.from(p.childNodes).map(function (knoten) {
+        if (knoten.nodeName === "BR") return "<br>";
+        if (knoten.nodeName === "A") {
+          var href = knoten.getAttribute("href");
+          if (/^https:\/\//i.test(href || "")) return '<a href="' + h(href) + '" rel="noopener">' + h(knoten.textContent) + "</a>";
+        }
+        return h(knoten.textContent);
+      }).join("");
+      return (quellen ? '<p class="quelle">' : "<p>") + text + "</p>";
+    }).join("");
   }
-  function positionsMarkup(ziel, liste, selector, render) {
-    var lokal = ziel.querySelector(selector);
+  function positionVollstaendig(t) {
+    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit") return true;
+    var gemeinsam = t.titel && t.kern && t.kurz && t.stehe && t.abwaegung && t.voran && t.frage && t.zuruf === "Säg mer, wo.";
+    return gemeinsam && (t.id === "gesundheit" ? t.belegt && t.qn && t.ql : t.uebersicht && t.belege);
+  }
+  function positionsMarkup(ziel, liste, render) {
     var neu = liste.map(function (t) {
-      if (t.id === "gesundheit" && !gesundheitVollstaendig(t)) return lokal ? lokal.outerHTML : "";
-      return render(t);
+      if (positionVollstaendig(t)) return render(t);
+      var lokal = ziel.querySelector('[id="' + t.id + '"], [data-slug="' + t.id + '"]');
+      return lokal ? lokal.outerHTML : "";
     }).join("");
     if (ziel.innerHTML !== neu) ziel.innerHTML = neu;
   }
@@ -62,25 +85,30 @@
   function themaBlock(t) {
     var l = B + "/positionen/" + h(t.id) + ".html";
     return '<section class="thema" id="' + h(t.id) + '"><div class="raster">\n<h2><a class="thema-link" href="' + l + '">' + h(t.titel) + '</a></h2>\n<div class="thema-text"><p class="thema-kern">' +
-      h(t.kern) + "</p><p>" + h(t.kurz) + '</p>\n<p class="thema-weiter"><a href="' + l + '">Ganze Position lesen</a></p></div>\n</div></section>';
+      h(t.kern) + "</p><p>" + h(t.uebersicht || t.kurz) + '</p>\n<p class="thema-weiter"><a href="' + l + '">Ganze Position lesen</a></p></div>\n</div></section>';
   }
   function sprung(liste, ohne) {
     return liste.filter(function (t) { return t.id !== ohne; }).map(function (t) { return '<li><a href="' + B + "/positionen/" + h(t.id) + '.html">' + h(t.titel) + "</a></li>"; }).join("");
   }
   function positionInhalt(t, liste) {
-    var gesundheit = t.id === "gesundheit";
+    var erreichbarkeit = t.id === "erreichbarkeit";
+    var gegliedert = t.id === "gesundheit" || erreichbarkeit;
     var f = "";
-    if (t.belegt) f += "<div><dt>Was belegt ist</dt><dd>" + h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "") + "</dd></div>";
-    f += "<div><dt>Wo ich stehe</dt><dd>" + (gesundheit ? absaetze(t.stehe) : h(t.stehe)) + "</dd></div>";
-    if (gesundheit && t.abwaegung) f += "<div><dt>Was ich abwäge</dt><dd>" + h(t.abwaegung) + "</dd></div>";
-    if (!gesundheit && t.preis) f += "<div><dt>Was es kostet</dt><dd>" + h(t.preis) + "</dd></div>";
+    var belege = t.belege || h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "");
+    if (belege) f += "<div><dt>Was belegt ist</dt><dd>" + belege + "</dd></div>";
+    f += "<div><dt>Wo ich stehe</dt><dd>" + (gegliedert ? absaetze(t.stehe) : h(t.stehe)) + "</dd></div>";
+    if (gegliedert && t.abwaegung) {
+      var abwaegung = h(t.abwaegung);
+      if (erreichbarkeit) abwaegung = abwaegung.replace(/\bParkierungsinitiative\b/, '<a href="https://parkraumgestaltung.ch/" rel="noopener">Parkierungsinitiative</a>');
+      f += "<div><dt>Was ich abwäge</dt><dd>" + abwaegung + "</dd></div>";
+    }
+    if (!gegliedert && t.preis) f += "<div><dt>Was es kostet</dt><dd>" + h(t.preis) + "</dd></div>";
     if (t.voran) f += "<div><dt>Was ich als Nächstes tue</dt><dd>" + h(t.voran) + "</dd></div>";
-    if (t.id === "erreichbarkeit") f += '<div><dt>Mein Engagement</dt><dd>Erweitertes Komitee der <a href="https://www.parkraumgestaltung.ch/">Initiative «Ja zu einer quartierverträglichen Parkierung in der Stadt Luzern»</a></dd></div>';
     if (t.id === "sicherheit") f += '<div><dt>Im Video</dt><dd>Die Serie Gewalt in drei Teilen steht unter <a href="' + B + '/beitraege.html">Beiträge</a>.</dd></div>';
     return '<section class="flaeche-marke seitenkopf"><div class="raster">\n<nav class="brotkrume" aria-label="Brotkrume"><ol><li><a href="' + B + '/">Start</a></li><li><a href="' + B +
-      '/positionen.html">Positionen</a></li><li aria-current="page">' + h(t.titel) + "</li></ol></nav>\n<h1>" + h(t.titel) + '</h1>\n<p class="einstieg">' + (gesundheit ? "<em>" + h(t.kern) + "</em>" : h(t.kern)) +
+      '/positionen.html">Positionen</a></li><li aria-current="page">' + h(t.titel) + "</li></ol></nav>\n<h1>" + h(t.titel) + '</h1>\n<p class="einstieg">' + (gegliedert ? "<em>" + h(t.kern) + "</em>" : h(t.kern)) +
       '</p>\n</div></section>\n<section class="thema"><div class="raster">\n<h2>Meine Position</h2>\n<div class="thema-text"><p class="thema-kern">' + h(t.kurz) +
-      '</p><dl class="thema-felder">' + f + '</dl>\n<div class="thema-frage"><p>' + (gesundheit ? "<em>" + h(t.frage) + "</em>" : h(t.frage)) + '</p><a lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) +
+      '</p><dl class="thema-felder">' + f + '</dl>\n<div class="thema-frage"><p>' + (gegliedert ? "<em>" + h(t.frage) + "</em>" : h(t.frage)) + '</p><a lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) +
       '</a></div></div>\n</div></section>\n<section class="flaeche-nebel abschnitt"><div class="raster">\n<h2 class="abschnitt-titel">Weitere Positionen</h2>\n<ul class="sprungliste">' +
       sprung(liste, t.id) + "</ul>\n</div></section>";
   }
@@ -92,20 +120,20 @@
       gesundheit = { id: "gesundheit", titel: "Gesundheit", start: true };
       liste.splice(2, 0, gesundheit);
     }
-    var gesundheitAusWix = gesundheitVollstaendig(gesundheit);
+    var gesundheitAusWix = positionVollstaendig(gesundheit);
     document.querySelectorAll('[data-cms="themen-start"]').forEach(function (x) {
       var offen = x.querySelector("details[open] .thema-marke");
       var start = liste.filter(function (t) { return t.start || (t === gesundheit && !gesundheitAusWix); });
       var o = offen ? offen.textContent : (start[0] || {}).titel;
-      positionsMarkup(x, start, '[data-slug="gesundheit"]', function (t) { return themaZeile(t, t.titel === o); });
+      positionsMarkup(x, start, function (t) { return themaZeile(t, t.titel === o); });
     });
     document.querySelectorAll('[data-cms="positionen-liste"]').forEach(function (x) {
-      positionsMarkup(x, liste, "#gesundheit", themaBlock);
+      positionsMarkup(x, liste, themaBlock);
     });
     setzen('[data-cms="positionen-sprung"]', sprung(liste));
     document.querySelectorAll('[data-cms="position"]').forEach(function (m) {
       var t = liste.filter(function (x) { return x.id === m.dataset.slug; })[0];
-      if (t && (t !== gesundheit || gesundheitAusWix)) {
+      if (t && positionVollstaendig(t)) {
         var neu = positionInhalt(t, liste);
         if (m.innerHTML.trim() !== neu) m.innerHTML = neu;
       }
