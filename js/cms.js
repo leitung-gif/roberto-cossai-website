@@ -33,7 +33,25 @@
   // ------------------------------------------------ Positionen
   function thema(x) {
     return { id: x.slug, titel: x.titel || "", start: !!x.startseite, frage: x.frage || "", zuruf: x.zuruf || "Säg mer, wie.", kern: x.kern || "",
-      kurz: x.kurztext || "", stehe: x.langtext || "", belegt: x.belegt || "", qn: x.quelleName || "", ql: url(x.quelleLink), preis: x.preis || "", voran: x.naechsterSchritt || "" };
+      kurz: x.kurztext || "", stehe: x.langtext || "", belegt: x.belegt || "", qn: x.quelleName || "", ql: url(x.quelleLink),
+      abwaegung: x.abwaegung || "", preis: x.preis || "", voran: x.naechsterSchritt || "" };
+  }
+  function gesundheitVollstaendig(t) {
+    return t.titel && t.kern && t.kurz && t.stehe && t.belegt && t.qn && t.ql &&
+      t.abwaegung && t.voran && t.frage && t.zuruf === "Säg mer, wo.";
+  }
+  function positionsMarkup(ziel, liste, selector, render) {
+    var lokal = ziel.querySelector(selector);
+    var neu = liste.map(function (t) {
+      if (t.id === "gesundheit" && !gesundheitVollstaendig(t)) return lokal ? lokal.outerHTML : "";
+      return render(t);
+    }).join("");
+    if (ziel.innerHTML !== neu) ziel.innerHTML = neu;
+  }
+  function absaetze(text) {
+    // Das Wix-Textfeld speichert eingefügte Absatzumbrüche als Leerzeichen.
+    var teile = text.trim().split(/\r?\n\s*\r?\n| {2,}/);
+    return teile.length > 1 ? teile.map(function (teil) { return "<p>" + h(teil) + "</p>"; }).join("") : h(text);
   }
   function themaZeile(t, offen) {
     return '<details class="thema-zeile" name="thema"' + (offen ? " open" : "") + '>\n<summary><span class="thema-marke">' + h(t.titel) + '</span><span class="thema-frage-gross">' + h(t.frage) +
@@ -50,35 +68,47 @@
     return liste.filter(function (t) { return t.id !== ohne; }).map(function (t) { return '<li><a href="' + B + "/positionen/" + h(t.id) + '.html">' + h(t.titel) + "</a></li>"; }).join("");
   }
   function positionInhalt(t, liste) {
+    var gesundheit = t.id === "gesundheit";
     var f = "";
     if (t.belegt) f += "<div><dt>Was belegt ist</dt><dd>" + h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "") + "</dd></div>";
-    f += "<div><dt>Wo ich stehe</dt><dd>" + h(t.stehe) + "</dd></div>";
-    if (t.preis) f += "<div><dt>Was es kostet</dt><dd>" + h(t.preis) + "</dd></div>";
+    f += "<div><dt>Wo ich stehe</dt><dd>" + (gesundheit ? absaetze(t.stehe) : h(t.stehe)) + "</dd></div>";
+    if (gesundheit && t.abwaegung) f += "<div><dt>Was ich abwäge</dt><dd>" + h(t.abwaegung) + "</dd></div>";
+    if (!gesundheit && t.preis) f += "<div><dt>Was es kostet</dt><dd>" + h(t.preis) + "</dd></div>";
     if (t.voran) f += "<div><dt>Was ich als Nächstes tue</dt><dd>" + h(t.voran) + "</dd></div>";
     if (t.id === "erreichbarkeit") f += '<div><dt>Mein Engagement</dt><dd>Erweitertes Komitee der <a href="https://www.parkraumgestaltung.ch/">Initiative «Ja zu einer quartierverträglichen Parkierung in der Stadt Luzern»</a></dd></div>';
     if (t.id === "sicherheit") f += '<div><dt>Im Video</dt><dd>Die Serie Gewalt in drei Teilen steht unter <a href="' + B + '/beitraege.html">Beiträge</a>.</dd></div>';
     return '<section class="flaeche-marke seitenkopf"><div class="raster">\n<nav class="brotkrume" aria-label="Brotkrume"><ol><li><a href="' + B + '/">Start</a></li><li><a href="' + B +
-      '/positionen.html">Positionen</a></li><li aria-current="page">' + h(t.titel) + "</li></ol></nav>\n<h1>" + h(t.titel) + '</h1>\n<p class="einstieg">' + h(t.kern) +
+      '/positionen.html">Positionen</a></li><li aria-current="page">' + h(t.titel) + "</li></ol></nav>\n<h1>" + h(t.titel) + '</h1>\n<p class="einstieg">' + (gesundheit ? "<em>" + h(t.kern) + "</em>" : h(t.kern)) +
       '</p>\n</div></section>\n<section class="thema"><div class="raster">\n<h2>Meine Position</h2>\n<div class="thema-text"><p class="thema-kern">' + h(t.kurz) +
-      '</p><dl class="thema-felder">' + f + '</dl>\n<div class="thema-frage"><p>' + h(t.frage) + '</p><a lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) +
+      '</p><dl class="thema-felder">' + f + '</dl>\n<div class="thema-frage"><p>' + (gesundheit ? "<em>" + h(t.frage) + "</em>" : h(t.frage)) + '</p><a lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) +
       '</a></div></div>\n</div></section>\n<section class="flaeche-nebel abschnitt"><div class="raster">\n<h2 class="abschnitt-titel">Weitere Positionen</h2>\n<ul class="sprungliste">' +
       sprung(liste, t.id) + "</ul>\n</div></section>";
   }
   function positionen(daten) {
     var liste = sichtbar(daten).filter(function (x) { return x.slug; }).sort(reihe).map(thema);
     if (!liste.length) return;
+    var gesundheit = liste.find(function (t) { return t.id === "gesundheit"; });
+    if (!gesundheit) {
+      gesundheit = { id: "gesundheit", titel: "Gesundheit", start: true };
+      liste.splice(2, 0, gesundheit);
+    }
+    var gesundheitAusWix = gesundheitVollstaendig(gesundheit);
     document.querySelectorAll('[data-cms="themen-start"]').forEach(function (x) {
       var offen = x.querySelector("details[open] .thema-marke");
-      var start = liste.filter(function (t) { return t.start; });
+      var start = liste.filter(function (t) { return t.start || (t === gesundheit && !gesundheitAusWix); });
       var o = offen ? offen.textContent : (start[0] || {}).titel;
-      var neu = start.map(function (t) { return themaZeile(t, t.titel === o); }).join("");
-      if (x.innerHTML !== neu) x.innerHTML = neu;
+      positionsMarkup(x, start, '[data-slug="gesundheit"]', function (t) { return themaZeile(t, t.titel === o); });
     });
-    setzen('[data-cms="positionen-liste"]', liste.map(themaBlock).join(""));
+    document.querySelectorAll('[data-cms="positionen-liste"]').forEach(function (x) {
+      positionsMarkup(x, liste, "#gesundheit", themaBlock);
+    });
     setzen('[data-cms="positionen-sprung"]', sprung(liste));
     document.querySelectorAll('[data-cms="position"]').forEach(function (m) {
       var t = liste.filter(function (x) { return x.id === m.dataset.slug; })[0];
-      if (t) { var neu = positionInhalt(t, liste); if (m.innerHTML.trim() !== neu) m.innerHTML = neu; }
+      if (t && (t !== gesundheit || gesundheitAusWix)) {
+        var neu = positionInhalt(t, liste);
+        if (m.innerHTML.trim() !== neu) m.innerHTML = neu;
+      }
     });
   }
 

@@ -5,7 +5,7 @@
 - [Positionen](https://leitung-gif.github.io/roberto-cossai-website/positionen.html): Wohnen, funktionierender Staat, Gesundheit, Sicherheit, Finanzen, Bildung, Erreichbarkeit
 - [Wohnen](https://leitung-gif.github.io/roberto-cossai-website/positionen/wohnen.html): Mehr Wohnraum und mehr Auswahl nehmen den Druck von Mieten und Kaufpreisen.
 - [Ein Staat, der funktioniert](https://leitung-gif.github.io/roberto-cossai-website/positionen/digital.html): Wer etwas vom Kanton braucht, soll es einfach erledigen können.
-- [Gesundheit](https://leitung-gif.github.io/roberto-cossai-website/positionen/gesundheit.html): Die Versorgung muss gut sein und bezahlbar bleiben.
+- [Gesundheit](https://leitung-gif.github.io/roberto-cossai-website/positionen/gesundheit.html): Grundversorgung in der Nähe. Spezialbehandlungen dort, wo sie am besten gelingen.
 - [Sicherheit](https://leitung-gif.github.io/roberto-cossai-website/positionen/sicherheit.html): Freiheit braucht Schutz vor Gewalt und Einschüchterung.
 - [Finanzen](https://leitung-gif.github.io/roberto-cossai-website/positionen/finanzen.html): Heute stärken, ohne morgen zu schwächen.
 - [Bildung](https://leitung-gif.github.io/roberto-cossai-website/positionen/bildung.html): Gute Bildung legt niemanden auf den ersten Entscheid fest.
