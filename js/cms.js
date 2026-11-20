@@ -34,7 +34,7 @@
   function thema(x) {
     return { id: x.slug, titel: x.titel || "", start: !!x.startseite, frage: x.frage || "", zuruf: x.zuruf || "Säg mer, wie.", kern: x.kern || "",
       kurz: x.kurztext || "", stehe: x.langtext || "", belegt: x.belegt || "", qn: x.quelleName || "", ql: url(x.quelleLink),
-      abwaegung: x.abwaegung || x.preis || "", preis: x.preis || "", voran: x.naechsterSchritt || "" };
+      abwaegung: x.abwaegung || "", preis: x.preis || "", voran: x.naechsterSchritt || "" };
   }
   function gesundheitVollstaendig(t) {
     return t.titel && t.kern && t.kurz && t.stehe && t.belegt && t.qn && t.ql &&
@@ -49,7 +49,8 @@
     if (ziel.innerHTML !== neu) ziel.innerHTML = neu;
   }
   function absaetze(text) {
-    var teile = text.trim().split(/\r?\n\s*\r?\n/);
+    // Das Wix-Textfeld speichert eingefügte Absatzumbrüche als Leerzeichen.
+    var teile = text.trim().split(/\r?\n\s*\r?\n| {2,}/);
     return teile.length > 1 ? teile.map(function (teil) { return "<p>" + h(teil) + "</p>"; }).join("") : h(text);
   }
   function themaZeile(t, offen) {
