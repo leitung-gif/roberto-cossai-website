@@ -70,12 +70,14 @@
     }).join("");
   }
   function positionVollstaendig(t) {
-    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit" && t.id !== "digital" && t.id !== "sicherheit" && t.id !== "wohnen" && t.id !== "finanzen") return true;
+    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit" && t.id !== "digital" && t.id !== "sicherheit" && t.id !== "wohnen" && t.id !== "finanzen" && t.id !== "bildung") return true;
     var gemeinsam = t.titel && t.kern && t.kurz && t.stehe && t.abwaegung && t.voran && t.frage && t.zuruf === "Säg mer, wo.";
     if (t.id === "sicherheit") return gemeinsam && t.uebersicht && t.belege && t.belege.includes("texts_of_law/370");
     if (t.id === "digital") return gemeinsam && t.titel === "Digital Schritt halten" && t.belege;
     if (t.id === "wohnen") return gemeinsam && t.titel === "Wohnen" && t.uebersicht && t.belege && absatzTeile(t.kurz).length > 1;
     if (t.id === "finanzen") return gemeinsam && t.titel === "Finanzen" && t.uebersicht && t.belege.includes("<ul>");
+    if (t.id === "bildung") return gemeinsam && t.titel === "Bildung" && t.uebersicht && t.belege.includes("<ul>") &&
+      absatzTeile(t.kurz).length > 1 && absatzTeile(t.voran).length > 1;
     return gemeinsam && (t.id === "gesundheit" ? t.belegt && t.qn && t.ql : t.uebersicht && t.belege);
   }
   function positionsMarkup(ziel, liste, render) {
@@ -108,28 +110,39 @@
   function sprung(liste, ohne) {
     return liste.filter(function (t) { return t.id !== ohne; }).map(function (t) { return '<li><a href="' + B + "/positionen/" + h(t.id) + '.html">' + h(t.navTitel || t.titel) + "</a></li>"; }).join("");
   }
+  function positionsliste(punkte) {
+    return "<ul>" + punkte.map(function (punkt) { return "<li>" + h(punkt) + "</li>"; }).join("") + "</ul>";
+  }
   function positionInhalt(t, liste) {
     var digital = t.id === "digital";
     var erreichbarkeit = t.id === "erreichbarkeit";
     var wohnen = t.id === "wohnen";
     var finanzen = t.id === "finanzen";
-    var mitAbschnittstiteln = wohnen || finanzen;
+    var bildung = t.id === "bildung";
+    var mitAbschnittstiteln = wohnen || finanzen || bildung;
     var gegliedert = t.id === "gesundheit" || erreichbarkeit || digital || mitAbschnittstiteln;
     var position = wohnen ? absatzTeile(t.kurz) : [t.kurz];
-    var kurz = h(position[0]) + "</p>" + position.slice(1).map(function (absatz) { return "<p>" + h(absatz) + "</p>"; }).join("");
+    var kurz = bildung ? positionsliste(absatzTeile(t.kurz)) : '<p class="thema-kern">' + h(position[0]) + "</p>" + position.slice(1).map(function (absatz) { return "<p>" + h(absatz) + "</p>"; }).join("");
+    var frage = h(t.frage);
+    if (bildung) frage = "<strong>" + frage + "</strong>";
+    else if (gegliedert) frage = "<em>" + frage + "</em>";
     var f = "";
     var belege = t.belege || h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "");
     if (belege) f += "<div><dt>Was belegt ist</dt><dd>" + belege + "</dd></div>";
     var stehe = gegliedert ? absaetze(t.stehe) : h(t.stehe);
     if (mitAbschnittstiteln) {
       stehe = absatzTeile(t.stehe).map(function (absatz) {
-        return absatz.indexOf("### ") === 0 ? "<h3><em>" + h(absatz.slice(4)) + "</em></h3>" : "<p>" + h(absatz) + "</p>";
+        if (absatz.indexOf("### ") !== 0) return "<p>" + h(absatz) + "</p>";
+        var titel = h(absatz.slice(4));
+        return "<h3>" + (bildung ? titel : "<em>" + titel + "</em>") + "</h3>";
       }).join("");
     }
     if (digital) stehe = stehe.replace("Mehr dazu unter Sicherheit.",
       'Mehr dazu unter <a href="' + B + '/positionen/sicherheit.html">Sicherheit</a>.');
     if (finanzen) stehe = stehe.replace("Mehr dazu unter Digitalisierung.",
       'Mehr dazu unter <a href="' + B + '/positionen/digital.html">Digitalisierung</a>.');
+    if (bildung) stehe = stehe.replace("Beratung und Kurse des Kantons Luzern",
+      '<a href="https://beruf.lu.ch/Berufslehre/Bildung_und_Berufsabschluss_fuer_Erwachsene/Grundkompetenzen_Erwachsene/Beratung_und_Kurse" rel="noopener">Beratung und Kurse des Kantons Luzern</a>');
     f += "<div><dt>Wo ich stehe</dt><dd>" + stehe + "</dd></div>";
     if (gegliedert && t.abwaegung) {
       var abwaegung = h(t.abwaegung);
@@ -137,11 +150,18 @@
       f += "<div><dt>Was ich abwäge</dt><dd>" + abwaegung + "</dd></div>";
     }
     if (!gegliedert && t.preis) f += "<div><dt>Was es kostet</dt><dd>" + h(t.preis) + "</dd></div>";
-    if (t.voran) f += "<div><dt>Was ich als Nächstes tue</dt><dd>" + h(t.voran) + "</dd></div>";
+    if (t.voran) {
+      var voran = h(t.voran);
+      if (bildung) {
+        var schritte = absatzTeile(t.voran);
+        voran = "<p>" + h(schritte[0]) + "</p>" + positionsliste(schritte.slice(1));
+      }
+      f += "<div><dt>Was ich als Nächstes tue</dt><dd>" + voran + "</dd></div>";
+    }
     return '<section class="flaeche-marke seitenkopf"><div class="raster">\n<nav class="brotkrume" aria-label="Brotkrume"><ol><li><a href="' + B + '/">Start</a></li><li><a href="' + B +
       '/positionen.html">Positionen</a></li><li aria-current="page">' + h(t.navTitel) + "</li></ol></nav>\n<h1>" + h(t.titel) + '</h1>\n<p class="einstieg">' + (gegliedert ? "<em>" + h(t.kern) + "</em>" : h(t.kern)) +
-      '</p>\n</div></section>\n<section class="thema"><div class="raster">\n<h2>Meine Position</h2>\n<div class="thema-text"><p class="thema-kern">' + kurz +
-      '<dl class="thema-felder">' + f + '</dl>\n<div class="thema-frage"><p>' + (gegliedert ? "<em>" + h(t.frage) + "</em>" : h(t.frage)) + '</p><a lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) +
+      '</p>\n</div></section>\n<section class="thema"><div class="raster">\n<h2>Meine Position</h2>\n<div class="thema-text">' + kurz +
+      '<dl class="thema-felder">' + f + '</dl>\n<div class="thema-frage"><p>' + frage + '</p><a lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) +
       '</a></div>' + (digital ? '<aside class="thema-frage" data-abstimmung="digital" hidden></aside>' : "") + '</div>\n</div></section>\n<section class="flaeche-nebel abschnitt"><div class="raster">\n<h2 class="abschnitt-titel">Weitere Positionen</h2>\n<ul class="sprungliste">' +
       sprung(liste, t.id) + "</ul>\n</div></section>";
   }
