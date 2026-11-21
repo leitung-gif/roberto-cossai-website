@@ -69,7 +69,7 @@
   }
   function positionsMarkup(ziel, liste, render) {
     var neu = liste.map(function (t) {
-      if (positionVollstaendig(t)) return render(t);
+      if (positionVollstaendig(t) || (t.id === "wohnen" && ziel.dataset.cms === "themen-start")) return render(t);
       var lokal = ziel.querySelector('[id="' + t.id + '"], [data-slug="' + t.id + '"]');
       return lokal ? lokal.outerHTML : "";
     }).join("");
@@ -85,7 +85,7 @@
   }
   function themaZeile(t, offen) {
     return '<details class="thema-zeile" name="thema"' + (offen ? " open" : "") + '>\n<summary><span class="thema-marke">' + h(t.navTitel) + '</span><span class="thema-frage-gross">' + h(t.frage) +
-      '</span><span class="zeichen" aria-hidden="true"></span></summary>\n<div class="thema-antwort"><p class="thema-kern">' + h(t.kern) + "</p><p>" + h(t.id === "sicherheit" || t.id === "wohnen" ? t.uebersicht : t.kurz) +
+      '</span><span class="zeichen" aria-hidden="true"></span></summary>\n<div class="thema-antwort"><p class="thema-kern">' + h(t.kern) + "</p><p>" + h(t.id === "sicherheit" || t.id === "wohnen" ? (t.uebersicht || t.kurz) : t.kurz) +
       '</p>\n<p class="thema-wege"><a class="knopf knopf-mundart" lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) + '</a><a href="' + B +
       "/positionen/" + h(t.id) + '.html">Meine Position lesen</a></p></div>\n</details>';
   }
