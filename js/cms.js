@@ -60,15 +60,16 @@
     }).join("");
   }
   function positionVollstaendig(t) {
-    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit" && t.id !== "digital" && t.id !== "sicherheit") return true;
+    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit" && t.id !== "digital" && t.id !== "sicherheit" && t.id !== "wohnen") return true;
     var gemeinsam = t.titel && t.kern && t.kurz && t.stehe && t.abwaegung && t.voran && t.frage && t.zuruf === "Säg mer, wo.";
     if (t.id === "sicherheit") return gemeinsam && t.uebersicht && t.belege && t.belege.includes("texts_of_law/370");
     if (t.id === "digital") return gemeinsam && t.titel === "Digital Schritt halten" && t.belege;
+    if (t.id === "wohnen") return gemeinsam && t.titel === "Wohnen" && t.uebersicht && t.belege && absatzTeile(t.kurz).length > 1;
     return gemeinsam && (t.id === "gesundheit" ? t.belegt && t.qn && t.ql : t.uebersicht && t.belege);
   }
   function positionsMarkup(ziel, liste, render) {
     var neu = liste.map(function (t) {
-      if (positionVollstaendig(t)) return render(t);
+      if (positionVollstaendig(t) || (t.id === "wohnen" && ziel.dataset.cms === "themen-start")) return render(t);
       var lokal = ziel.querySelector('[id="' + t.id + '"], [data-slug="' + t.id + '"]');
       return lokal ? lokal.outerHTML : "";
     }).join("");
@@ -84,7 +85,7 @@
   }
   function themaZeile(t, offen) {
     return '<details class="thema-zeile" name="thema"' + (offen ? " open" : "") + '>\n<summary><span class="thema-marke">' + h(t.navTitel) + '</span><span class="thema-frage-gross">' + h(t.frage) +
-      '</span><span class="zeichen" aria-hidden="true"></span></summary>\n<div class="thema-antwort"><p class="thema-kern">' + h(t.kern) + "</p><p>" + h(t.id === "sicherheit" ? t.uebersicht : t.kurz) +
+      '</span><span class="zeichen" aria-hidden="true"></span></summary>\n<div class="thema-antwort"><p class="thema-kern">' + h(t.kern) + "</p><p>" + h(t.id === "sicherheit" || t.id === "wohnen" ? (t.uebersicht || t.kurz) : t.kurz) +
       '</p>\n<p class="thema-wege"><a class="knopf knopf-mundart" lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) + '</a><a href="' + B +
       "/positionen/" + h(t.id) + '.html">Meine Position lesen</a></p></div>\n</details>';
   }
@@ -99,11 +100,19 @@
   function positionInhalt(t, liste) {
     var digital = t.id === "digital";
     var erreichbarkeit = t.id === "erreichbarkeit";
-    var gegliedert = t.id === "gesundheit" || erreichbarkeit || digital;
+    var wohnen = t.id === "wohnen";
+    var gegliedert = t.id === "gesundheit" || erreichbarkeit || digital || wohnen;
+    var position = wohnen ? absatzTeile(t.kurz) : [t.kurz];
+    var kurz = h(position[0]) + "</p>" + position.slice(1).map(function (absatz) { return "<p>" + h(absatz) + "</p>"; }).join("");
     var f = "";
     var belege = t.belege || h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "");
     if (belege) f += "<div><dt>Was belegt ist</dt><dd>" + belege + "</dd></div>";
     var stehe = gegliedert ? absaetze(t.stehe) : h(t.stehe);
+    if (wohnen) {
+      stehe = absatzTeile(t.stehe).map(function (absatz) {
+        return absatz.indexOf("### ") === 0 ? "<h3><em>" + h(absatz.slice(4)) + "</em></h3>" : "<p>" + h(absatz) + "</p>";
+      }).join("");
+    }
     if (digital) stehe = stehe.replace("Mehr dazu unter Sicherheit.",
       'Mehr dazu unter <a href="' + B + '/positionen/sicherheit.html">Sicherheit</a>.');
     f += "<div><dt>Wo ich stehe</dt><dd>" + stehe + "</dd></div>";
@@ -116,8 +125,8 @@
     if (t.voran) f += "<div><dt>Was ich als Nächstes tue</dt><dd>" + h(t.voran) + "</dd></div>";
     return '<section class="flaeche-marke seitenkopf"><div class="raster">\n<nav class="brotkrume" aria-label="Brotkrume"><ol><li><a href="' + B + '/">Start</a></li><li><a href="' + B +
       '/positionen.html">Positionen</a></li><li aria-current="page">' + h(t.navTitel) + "</li></ol></nav>\n<h1>" + h(t.titel) + '</h1>\n<p class="einstieg">' + (gegliedert ? "<em>" + h(t.kern) + "</em>" : h(t.kern)) +
-      '</p>\n</div></section>\n<section class="thema"><div class="raster">\n<h2>Meine Position</h2>\n<div class="thema-text"><p class="thema-kern">' + h(t.kurz) +
-      '</p><dl class="thema-felder">' + f + '</dl>\n<div class="thema-frage"><p>' + (gegliedert ? "<em>" + h(t.frage) + "</em>" : h(t.frage)) + '</p><a lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) +
+      '</p>\n</div></section>\n<section class="thema"><div class="raster">\n<h2>Meine Position</h2>\n<div class="thema-text"><p class="thema-kern">' + kurz +
+      '<dl class="thema-felder">' + f + '</dl>\n<div class="thema-frage"><p>' + (gegliedert ? "<em>" + h(t.frage) + "</em>" : h(t.frage)) + '</p><a lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) +
       '</a></div>' + (digital ? '<aside class="thema-frage" data-abstimmung="digital" hidden></aside>' : "") + '</div>\n</div></section>\n<section class="flaeche-nebel abschnitt"><div class="raster">\n<h2 class="abschnitt-titel">Weitere Positionen</h2>\n<ul class="sprungliste">' +
       sprung(liste, t.id) + "</ul>\n</div></section>";
   }
