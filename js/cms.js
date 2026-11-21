@@ -60,10 +60,11 @@
     }).join("");
   }
   function positionVollstaendig(t) {
-    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit" && t.id !== "digital" && t.id !== "sicherheit") return true;
+    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit" && t.id !== "digital" && t.id !== "sicherheit" && t.id !== "wohnen") return true;
     var gemeinsam = t.titel && t.kern && t.kurz && t.stehe && t.abwaegung && t.voran && t.frage && t.zuruf === "Säg mer, wo.";
     if (t.id === "sicherheit") return gemeinsam && t.uebersicht && t.belege && t.belege.includes("texts_of_law/370");
     if (t.id === "digital") return gemeinsam && t.titel === "Digital Schritt halten" && t.belege;
+    if (t.id === "wohnen") return gemeinsam && t.uebersicht && (t.belege.match(/<a href=/g) || []).length >= 3;
     return gemeinsam && (t.id === "gesundheit" ? t.belegt && t.qn && t.ql : t.uebersicht && t.belege);
   }
   function positionsMarkup(ziel, liste, render) {
@@ -84,7 +85,7 @@
   }
   function themaZeile(t, offen) {
     return '<details class="thema-zeile" name="thema"' + (offen ? " open" : "") + '>\n<summary><span class="thema-marke">' + h(t.navTitel) + '</span><span class="thema-frage-gross">' + h(t.frage) +
-      '</span><span class="zeichen" aria-hidden="true"></span></summary>\n<div class="thema-antwort"><p class="thema-kern">' + h(t.kern) + "</p><p>" + h(t.id === "sicherheit" ? t.uebersicht : t.kurz) +
+      '</span><span class="zeichen" aria-hidden="true"></span></summary>\n<div class="thema-antwort"><p class="thema-kern">' + h(t.kern) + "</p><p>" + h(t.id === "sicherheit" || t.id === "wohnen" ? t.uebersicht : t.kurz) +
       '</p>\n<p class="thema-wege"><a class="knopf knopf-mundart" lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) + '</a><a href="' + B +
       "/positionen/" + h(t.id) + '.html">Meine Position lesen</a></p></div>\n</details>';
   }
@@ -99,11 +100,18 @@
   function positionInhalt(t, liste) {
     var digital = t.id === "digital";
     var erreichbarkeit = t.id === "erreichbarkeit";
-    var gegliedert = t.id === "gesundheit" || erreichbarkeit || digital;
+    var wohnen = t.id === "wohnen";
+    var gegliedert = t.id === "gesundheit" || erreichbarkeit || digital || wohnen;
     var f = "";
     var belege = t.belege || h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "");
     if (belege) f += "<div><dt>Was belegt ist</dt><dd>" + belege + "</dd></div>";
     var stehe = gegliedert ? absaetze(t.stehe) : h(t.stehe);
+    if (wohnen) {
+      var zwischentitel = ["Im Kanton", "In der Stadt und den Gemeinden", "Eigentum"];
+      stehe = absatzTeile(t.stehe).map(function (teil) {
+        return zwischentitel.includes(teil) ? "<h3>" + h(teil) + "</h3>" : "<p>" + h(teil) + "</p>";
+      }).join("");
+    }
     if (digital) stehe = stehe.replace("Mehr dazu unter Sicherheit.",
       'Mehr dazu unter <a href="' + B + '/positionen/sicherheit.html">Sicherheit</a>.');
     f += "<div><dt>Wo ich stehe</dt><dd>" + stehe + "</dd></div>";
