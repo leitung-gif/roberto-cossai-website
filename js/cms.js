@@ -40,6 +40,7 @@
   }
   function belegeText(knoten) {
     if (knoten.nodeName === "BR") return "<br>";
+    if (knoten.nodeName === "P") return Array.from(knoten.childNodes).map(belegeText).join("");
     if (knoten.nodeName === "STRONG" || knoten.nodeName === "B") return "<strong>" + h(knoten.textContent) + "</strong>";
     if (knoten.nodeName === "A") {
       var href = knoten.getAttribute("href");
