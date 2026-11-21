@@ -38,33 +38,44 @@
       abwaegung: x.abwaegung || "", preis: x.preis || "", voran: x.naechsterSchritt || "",
       uebersicht: x.uebersichtKernsatz || "", belege: belegeMarkup(x.belegeMitQuellen) };
   }
+  function belegeText(knoten) {
+    if (knoten.nodeName === "BR") return "<br>";
+    if (knoten.nodeName === "P") return Array.from(knoten.childNodes).map(belegeText).join("");
+    if (knoten.nodeName === "STRONG" || knoten.nodeName === "B") return "<strong>" + h(knoten.textContent) + "</strong>";
+    if (knoten.nodeName === "A") {
+      var href = knoten.getAttribute("href");
+      if (/^https:\/\//i.test(href || "")) return '<a href="' + h(href) + '" rel="noopener">' + h(knoten.textContent) + "</a>";
+    }
+    return h(knoten.textContent);
+  }
   function belegeMarkup(inhalt) {
     if (typeof inhalt !== "string" || !inhalt) return "";
     var vorlage = document.createElement("template");
     vorlage.innerHTML = inhalt;
-    return Array.from(vorlage.content.children).filter(function (p) {
-      return p.tagName === "P" && p.textContent.trim();
-    }).map(function (p) {
-      var quellen = p.querySelector("a") && Array.from(p.childNodes).every(function (knoten) {
-        return knoten.nodeName === "A" || /^[\s·]*$/.test(knoten.textContent);
+    return Array.from(vorlage.content.children).map(function (element) {
+      if (element.tagName === "UL") {
+        var punkte = Array.from(element.children).filter(function (punkt) {
+          return punkt.tagName === "LI" && punkt.textContent.trim();
+        }).map(function (punkt) {
+          return "<li>" + Array.from(punkt.childNodes).map(belegeText).join("") + "</li>";
+        }).join("");
+        return punkte ? "<ul>" + punkte + "</ul>" : "";
+      }
+      if (element.tagName !== "P" || !element.textContent.trim()) return "";
+      var knoten = Array.from(element.childNodes);
+      var quellen = element.querySelector("a") && knoten.every(function (teil) {
+        return teil.nodeName === "A" || /^[\s·]*$/.test(teil.textContent);
       });
-      var text = Array.from(p.childNodes).map(function (knoten) {
-        if (knoten.nodeName === "BR") return "<br>";
-        if (knoten.nodeName === "A") {
-          var href = knoten.getAttribute("href");
-          if (/^https:\/\//i.test(href || "")) return '<a href="' + h(href) + '" rel="noopener">' + h(knoten.textContent) + "</a>";
-        }
-        return h(knoten.textContent);
-      }).join("");
-      return (quellen ? '<p class="quelle">' : "<p>") + text + "</p>";
+      return (quellen ? '<p class="quelle">' : "<p>") + knoten.map(belegeText).join("") + "</p>";
     }).join("");
   }
   function positionVollstaendig(t) {
-    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit" && t.id !== "digital" && t.id !== "sicherheit" && t.id !== "wohnen") return true;
+    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit" && t.id !== "digital" && t.id !== "sicherheit" && t.id !== "wohnen" && t.id !== "finanzen") return true;
     var gemeinsam = t.titel && t.kern && t.kurz && t.stehe && t.abwaegung && t.voran && t.frage && t.zuruf === "Säg mer, wo.";
     if (t.id === "sicherheit") return gemeinsam && t.uebersicht && t.belege && t.belege.includes("texts_of_law/370");
     if (t.id === "digital") return gemeinsam && t.titel === "Digital Schritt halten" && t.belege;
     if (t.id === "wohnen") return gemeinsam && t.titel === "Wohnen" && t.uebersicht && t.belege && absatzTeile(t.kurz).length > 1;
+    if (t.id === "finanzen") return gemeinsam && t.titel === "Finanzen" && t.uebersicht && t.belege.includes("<ul>");
     return gemeinsam && (t.id === "gesundheit" ? t.belegt && t.qn && t.ql : t.uebersicht && t.belege);
   }
   function positionsMarkup(ziel, liste, render) {
@@ -101,20 +112,24 @@
     var digital = t.id === "digital";
     var erreichbarkeit = t.id === "erreichbarkeit";
     var wohnen = t.id === "wohnen";
-    var gegliedert = t.id === "gesundheit" || erreichbarkeit || digital || wohnen;
+    var finanzen = t.id === "finanzen";
+    var mitAbschnittstiteln = wohnen || finanzen;
+    var gegliedert = t.id === "gesundheit" || erreichbarkeit || digital || mitAbschnittstiteln;
     var position = wohnen ? absatzTeile(t.kurz) : [t.kurz];
     var kurz = h(position[0]) + "</p>" + position.slice(1).map(function (absatz) { return "<p>" + h(absatz) + "</p>"; }).join("");
     var f = "";
     var belege = t.belege || h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "");
     if (belege) f += "<div><dt>Was belegt ist</dt><dd>" + belege + "</dd></div>";
     var stehe = gegliedert ? absaetze(t.stehe) : h(t.stehe);
-    if (wohnen) {
+    if (mitAbschnittstiteln) {
       stehe = absatzTeile(t.stehe).map(function (absatz) {
         return absatz.indexOf("### ") === 0 ? "<h3><em>" + h(absatz.slice(4)) + "</em></h3>" : "<p>" + h(absatz) + "</p>";
       }).join("");
     }
     if (digital) stehe = stehe.replace("Mehr dazu unter Sicherheit.",
       'Mehr dazu unter <a href="' + B + '/positionen/sicherheit.html">Sicherheit</a>.');
+    if (finanzen) stehe = stehe.replace("Mehr dazu unter Digitalisierung.",
+      'Mehr dazu unter <a href="' + B + '/positionen/digital.html">Digitalisierung</a>.');
     f += "<div><dt>Wo ich stehe</dt><dd>" + stehe + "</dd></div>";
     if (gegliedert && t.abwaegung) {
       var abwaegung = h(t.abwaegung);
