@@ -467,3 +467,22 @@ form .knopf { margin-top: var(--abstand-6); }
 @media (max-width: 480px) { .folgen { grid-template-columns: 1fr; } .folge { min-height: 0; flex-direction: row; align-items: baseline; justify-content: flex-start; gap: var(--abstand-4); padding-block: var(--abstand-4); } .folge time { flex: none; width: 6.2em; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 @media print { .kopf, .mobil-aktion, .fuss { display: none; } }
+
+/* Aufzählungen in den Belegen und nächsten Schritten der Positionen. */
+[data-slug="finanzen"] .thema-felder dd > ul,
+[data-slug="sicherheit"] .thema-felder dd > ul {
+  list-style: disc;
+  padding-inline-start: 1.35em;
+  margin-block: var(--abstand-2) 0;
+}
+[data-slug="finanzen"] .thema-felder dd > ul > li + li,
+[data-slug="sicherheit"] .thema-felder dd > ul > li + li {
+  margin-block-start: var(--abstand-2);
+}
+
+@media (max-width: 375px) {
+  [data-slug="erreichbarkeit"] .seitenkopf h1 {
+    font-size: clamp(2rem, 12.5vw, 3rem);
+    overflow-wrap: anywhere;
+  }
+}
