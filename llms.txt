@@ -2,11 +2,11 @@
 
 > Roberto Cossai kandidiert am 21.03.2027 für den Kantonsrat des Kantons Luzern, Wahlkreis Luzern-Stadt, FDP.Die Liberalen Stadt Luzern, Liste 4.
 
-- [Positionen](https://leitung-gif.github.io/roberto-cossai-website/positionen.html): Wohnen, funktionierender Staat, Gesundheit, Sicherheit, Finanzen, Bildung, Erreichbarkeit
+- [Positionen](https://leitung-gif.github.io/roberto-cossai-website/positionen.html): Wohnen, Digitalisierung, Gesundheit, Sicherheit, Finanzen, Bildung, Erreichbarkeit
 - [Wohnen](https://leitung-gif.github.io/roberto-cossai-website/positionen/wohnen.html): Mehr Wohnraum und mehr Auswahl nehmen den Druck von Mieten und Kaufpreisen.
-- [Ein Staat, der funktioniert](https://leitung-gif.github.io/roberto-cossai-website/positionen/digital.html): Wer etwas vom Kanton braucht, soll es einfach erledigen können.
+- [Digital Schritt halten](https://leitung-gif.github.io/roberto-cossai-website/positionen/digital.html): Ein Gesuch online einreichen und dann noch Papier abgeben? Ich will Behördengänge, die von Anfang bis Ende digital funktionieren.
 - [Gesundheit](https://leitung-gif.github.io/roberto-cossai-website/positionen/gesundheit.html): Grundversorgung in der Nähe. Spezialbehandlungen dort, wo sie am besten gelingen.
-- [Sicherheit](https://leitung-gif.github.io/roberto-cossai-website/positionen/sicherheit.html): Freiheit braucht Schutz vor Gewalt und Einschüchterung.
+- [Sicherheit](https://leitung-gif.github.io/roberto-cossai-website/positionen/sicherheit.html): Freiheit braucht Schutz: auf der Strasse, zu Hause und im Netz.
 - [Finanzen](https://leitung-gif.github.io/roberto-cossai-website/positionen/finanzen.html): Heute stärken, ohne morgen zu schwächen.
 - [Bildung](https://leitung-gif.github.io/roberto-cossai-website/positionen/bildung.html): Gute Bildung legt niemanden auf den ersten Entscheid fest.
 - [Erreichbarkeit](https://leitung-gif.github.io/roberto-cossai-website/positionen/erreichbarkeit.html): Zu Fuss, mit Mikromobilität vom Velo bis zum E-Trottinett, mit Bus und Bahn oder mit dem Auto: Alle sollen sicher und verlässlich ans Ziel kommen.

@@ -32,7 +32,8 @@
 
   // ------------------------------------------------ Positionen
   function thema(x) {
-    return { id: x.slug, titel: x.titel || "", start: !!x.startseite, frage: x.frage || "", zuruf: x.zuruf || "Säg mer, wie.", kern: x.kern || "",
+    return { id: x.slug, titel: x.titel || "", navTitel: x.slug === "digital" ? "Digitalisierung" : x.titel || "",
+      start: !!x.startseite, frage: x.frage || "", zuruf: x.zuruf || "Säg mer, wie.", kern: x.kern || "",
       kurz: x.kurztext || "", stehe: x.langtext || "", belegt: x.belegt || "", qn: x.quelleName || "", ql: url(x.quelleLink),
       abwaegung: x.abwaegung || "", preis: x.preis || "", voran: x.naechsterSchritt || "",
       uebersicht: x.uebersichtKernsatz || "", belege: belegeMarkup(x.belegeMitQuellen) };
@@ -59,8 +60,10 @@
     }).join("");
   }
   function positionVollstaendig(t) {
-    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit") return true;
+    if (t.id !== "gesundheit" && t.id !== "erreichbarkeit" && t.id !== "digital" && t.id !== "sicherheit") return true;
     var gemeinsam = t.titel && t.kern && t.kurz && t.stehe && t.abwaegung && t.voran && t.frage && t.zuruf === "Säg mer, wo.";
+    if (t.id === "sicherheit") return gemeinsam && t.uebersicht && t.belege && t.belege.includes("texts_of_law/370");
+    if (t.id === "digital") return gemeinsam && t.titel === "Digital Schritt halten" && t.belege;
     return gemeinsam && (t.id === "gesundheit" ? t.belegt && t.qn && t.ql : t.uebersicht && t.belege);
   }
   function positionsMarkup(ziel, liste, render) {
@@ -71,14 +74,17 @@
     }).join("");
     if (ziel.innerHTML !== neu) ziel.innerHTML = neu;
   }
+  // Doppelte Leerzeichen erhalten die Absatzgrenzen in Wix-Textfeldern.
+  function absatzTeile(text) {
+    return text.trim().split(/\r?\n\s*\r?\n| {2,}/);
+  }
   function absaetze(text) {
-    // Das Wix-Textfeld speichert eingefügte Absatzumbrüche als Leerzeichen.
-    var teile = text.trim().split(/\r?\n\s*\r?\n| {2,}/);
+    var teile = absatzTeile(text);
     return teile.length > 1 ? teile.map(function (teil) { return "<p>" + h(teil) + "</p>"; }).join("") : h(text);
   }
   function themaZeile(t, offen) {
-    return '<details class="thema-zeile" name="thema"' + (offen ? " open" : "") + '>\n<summary><span class="thema-marke">' + h(t.titel) + '</span><span class="thema-frage-gross">' + h(t.frage) +
-      '</span><span class="zeichen" aria-hidden="true"></span></summary>\n<div class="thema-antwort"><p class="thema-kern">' + h(t.kern) + "</p><p>" + h(t.kurz) +
+    return '<details class="thema-zeile" name="thema"' + (offen ? " open" : "") + '>\n<summary><span class="thema-marke">' + h(t.navTitel) + '</span><span class="thema-frage-gross">' + h(t.frage) +
+      '</span><span class="zeichen" aria-hidden="true"></span></summary>\n<div class="thema-antwort"><p class="thema-kern">' + h(t.kern) + "</p><p>" + h(t.id === "sicherheit" ? t.uebersicht : t.kurz) +
       '</p>\n<p class="thema-wege"><a class="knopf knopf-mundart" lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) + '</a><a href="' + B +
       "/positionen/" + h(t.id) + '.html">Meine Position lesen</a></p></div>\n</details>';
   }
@@ -88,15 +94,19 @@
       h(t.kern) + "</p><p>" + h(t.uebersicht || t.kurz) + '</p>\n<p class="thema-weiter"><a href="' + l + '">Ganze Position lesen</a></p></div>\n</div></section>';
   }
   function sprung(liste, ohne) {
-    return liste.filter(function (t) { return t.id !== ohne; }).map(function (t) { return '<li><a href="' + B + "/positionen/" + h(t.id) + '.html">' + h(t.titel) + "</a></li>"; }).join("");
+    return liste.filter(function (t) { return t.id !== ohne; }).map(function (t) { return '<li><a href="' + B + "/positionen/" + h(t.id) + '.html">' + h(t.navTitel || t.titel) + "</a></li>"; }).join("");
   }
   function positionInhalt(t, liste) {
+    var digital = t.id === "digital";
     var erreichbarkeit = t.id === "erreichbarkeit";
-    var gegliedert = t.id === "gesundheit" || erreichbarkeit;
+    var gegliedert = t.id === "gesundheit" || erreichbarkeit || digital;
     var f = "";
     var belege = t.belege || h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "");
     if (belege) f += "<div><dt>Was belegt ist</dt><dd>" + belege + "</dd></div>";
-    f += "<div><dt>Wo ich stehe</dt><dd>" + (gegliedert ? absaetze(t.stehe) : h(t.stehe)) + "</dd></div>";
+    var stehe = gegliedert ? absaetze(t.stehe) : h(t.stehe);
+    if (digital) stehe = stehe.replace("Mehr dazu unter Sicherheit.",
+      'Mehr dazu unter <a href="' + B + '/positionen/sicherheit.html">Sicherheit</a>.');
+    f += "<div><dt>Wo ich stehe</dt><dd>" + stehe + "</dd></div>";
     if (gegliedert && t.abwaegung) {
       var abwaegung = h(t.abwaegung);
       if (erreichbarkeit) abwaegung = abwaegung.replace(/\bParkierungsinitiative\b/, '<a href="https://parkraumgestaltung.ch/" rel="noopener">Parkierungsinitiative</a>');
@@ -104,13 +114,51 @@
     }
     if (!gegliedert && t.preis) f += "<div><dt>Was es kostet</dt><dd>" + h(t.preis) + "</dd></div>";
     if (t.voran) f += "<div><dt>Was ich als Nächstes tue</dt><dd>" + h(t.voran) + "</dd></div>";
-    if (t.id === "sicherheit") f += '<div><dt>Im Video</dt><dd>Die Serie Gewalt in drei Teilen steht unter <a href="' + B + '/beitraege.html">Beiträge</a>.</dd></div>';
     return '<section class="flaeche-marke seitenkopf"><div class="raster">\n<nav class="brotkrume" aria-label="Brotkrume"><ol><li><a href="' + B + '/">Start</a></li><li><a href="' + B +
-      '/positionen.html">Positionen</a></li><li aria-current="page">' + h(t.titel) + "</li></ol></nav>\n<h1>" + h(t.titel) + '</h1>\n<p class="einstieg">' + (gegliedert ? "<em>" + h(t.kern) + "</em>" : h(t.kern)) +
+      '/positionen.html">Positionen</a></li><li aria-current="page">' + h(t.navTitel) + "</li></ol></nav>\n<h1>" + h(t.titel) + '</h1>\n<p class="einstieg">' + (gegliedert ? "<em>" + h(t.kern) + "</em>" : h(t.kern)) +
       '</p>\n</div></section>\n<section class="thema"><div class="raster">\n<h2>Meine Position</h2>\n<div class="thema-text"><p class="thema-kern">' + h(t.kurz) +
       '</p><dl class="thema-felder">' + f + '</dl>\n<div class="thema-frage"><p>' + (gegliedert ? "<em>" + h(t.frage) + "</em>" : h(t.frage)) + '</p><a lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) +
-      '</a></div></div>\n</div></section>\n<section class="flaeche-nebel abschnitt"><div class="raster">\n<h2 class="abschnitt-titel">Weitere Positionen</h2>\n<ul class="sprungliste">' +
+      '</a></div>' + (digital ? '<aside class="thema-frage" data-abstimmung="digital" hidden></aside>' : "") + '</div>\n</div></section>\n<section class="flaeche-nebel abschnitt"><div class="raster">\n<h2 class="abschnitt-titel">Weitere Positionen</h2>\n<ul class="sprungliste">' +
       sprung(liste, t.id) + "</ul>\n</div></section>";
+  }
+  function sicherheitInhalt(m, t, liste) {
+    // Listen und Hilfelinks behalten die Struktur der statischen Vorlage.
+    function textTeile(feld, text) {
+      var teile = absatzTeile(text);
+      var elemente = Array.from(m.querySelectorAll('[data-sicherheit-text="' + feld + '"]'));
+      if (teile.length !== elemente.length) return;
+      elemente.forEach(function (element, i) {
+        var link = element.querySelector("a");
+        if (!link) {
+          element.textContent = teile[i];
+          return;
+        }
+        var label = link.textContent;
+        var index = teile[i].indexOf(label);
+        if (index < 0) return;
+        element.replaceChildren(teile[i].slice(0, index), link, teile[i].slice(index + label.length));
+      });
+    }
+    textTeile("kern", t.kern);
+    textTeile("kurz", t.kurz);
+    textTeile("stehe", t.stehe);
+    textTeile("abwaegung", t.abwaegung);
+    textTeile("voran", t.voran);
+    textTeile("frage", t.frage);
+    m.querySelector("[data-sicherheit-belege]").innerHTML = t.belege;
+    m.querySelector(".sprungliste").innerHTML = sprung(liste, t.id);
+  }
+  function abstimmungAnzeigen(einstellungen) {
+    var hinweis = document.querySelector("[data-abstimmung]");
+    if (!hinweis) return;
+    var resultat = einstellungen[hinweis.dataset.abstimmung + "_abstimmungsresultat"];
+    var vorher = Date.now() < Date.parse("2026-11-30T00:00:00+01:00");
+    var vorlage = Array.from(document.querySelectorAll("template[data-abstimmung-stand]")).find(function (t) {
+      var stand = t.dataset.abstimmungStand;
+      return vorher ? stand === "vorher" : stand !== "vorher" && stand === resultat;
+    });
+    hinweis.hidden = !vorlage;
+    hinweis.innerHTML = vorlage ? vorlage.innerHTML : "";
   }
   function positionen(daten) {
     var liste = sichtbar(daten).filter(function (x) { return x.slug; }).sort(reihe).map(thema);
@@ -124,8 +172,8 @@
     document.querySelectorAll('[data-cms="themen-start"]').forEach(function (x) {
       var offen = x.querySelector("details[open] .thema-marke");
       var start = liste.filter(function (t) { return t.start || (t === gesundheit && !gesundheitAusWix); });
-      var o = offen ? offen.textContent : (start[0] || {}).titel;
-      positionsMarkup(x, start, function (t) { return themaZeile(t, t.titel === o); });
+      var o = offen ? offen.textContent : (start[0] || {}).navTitel;
+      positionsMarkup(x, start, function (t) { return themaZeile(t, t.navTitel === o); });
     });
     document.querySelectorAll('[data-cms="positionen-liste"]').forEach(function (x) {
       positionsMarkup(x, liste, themaBlock);
@@ -134,6 +182,10 @@
     document.querySelectorAll('[data-cms="position"]').forEach(function (m) {
       var t = liste.filter(function (x) { return x.id === m.dataset.slug; })[0];
       if (t && positionVollstaendig(t)) {
+        if (t.id === "sicherheit") {
+          sicherheitInhalt(m, t, liste);
+          return;
+        }
         var neu = positionInhalt(t, liste);
         if (m.innerHTML.trim() !== neu) m.innerHTML = neu;
       }
@@ -228,6 +280,7 @@
   var karte = { "themen-start": "Positionen", "positionen-liste": "Positionen", "positionen-sprung": "Positionen", position: "Positionen", folgen: "Termine", anlaesse: "Termine",
     serie: "News", medienberichte: "News", stimmen: "Stimmen", gesagt: "Rueckmeldungen" };
   document.querySelectorAll("[data-cms]").forEach(function (x) { if (karte[x.dataset.cms]) braucht[karte[x.dataset.cms]] = true; });
+  abstimmungAnzeigen({});
 
   post("oauth2/token", { clientId: CLIENT, grantType: "anonymous" }).then(function (d) {
     var ids = Object.keys(braucht);
@@ -239,6 +292,7 @@
   }).then(function (s) {
     var ein = einstellungen(s.Einstellungen || []);
     if (s.Positionen) positionen(s.Positionen);
+    abstimmungAnzeigen(ein);
     if (s.Termine) termine(s.Termine);
     if (s.News) news(s.News);
     if (s.Stimmen) stimmen(s.Stimmen);
