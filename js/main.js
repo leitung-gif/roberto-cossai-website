@@ -138,7 +138,7 @@
         var wert = function (id) { var f = form.querySelector("#" + id); return f ? (f.type === "checkbox" ? (f.checked ? "ja" : "nein") : f.value.trim()) : ""; };
         var text = "Ort oder Anliegen: " + wert("ort") + "\n\n" + wert("anliegen") + "\n\nName: " + wert("name") +
           "\nQuartier: " + wert("quartier") + "\nE-Mail: " + wert("email") +
-          "\nDarf nach Prüfung erscheinen: " + wert("oeffentlich") + "\nOhne Namen veröffentlichen: " + wert("ohne_namen") + "\nNachfragen erlaubt: " + wert("rueckfrage");
+          "\nNachfragen erlaubt: " + wert("rueckfrage");
         location.href = "mailto:" + form.dataset.mail + "?subject=" + encodeURIComponent("Säg mer, wo: " + wert("ort")) + "&body=" + encodeURIComponent(text);
         antwort.textContent = form.dataset.danke;
         return;
@@ -158,18 +158,4 @@
       });
     });
   });
-})();
-
-/* Kopf: oben das Hauptlogo, nach dem Scrollen das Monogramm. Hysterese gegen Flackern. */
-(function () {
-  var kopf = document.querySelector(".kopf");
-  if (!kopf) return;
-  var kompakt = false;
-  function pruefe() {
-    var y = window.scrollY || 0;
-    if (!kompakt && y > 160) { kompakt = true; kopf.classList.add("kompakt"); }
-    else if (kompakt && y < 40) { kompakt = false; kopf.classList.remove("kompakt"); }
-  }
-  window.addEventListener("scroll", pruefe, { passive: true });
-  pruefe();
 })();
