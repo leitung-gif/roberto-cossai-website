@@ -136,7 +136,7 @@
       if (form.dataset.modus === "mail") {
         // Entwurf ohne Server: Nachricht an das Postfach, veröffentlicht wird nur nach Prüfung
         var wert = function (id) { var f = form.querySelector("#" + id); return f ? (f.type === "checkbox" ? (f.checked ? "ja" : "nein") : f.value.trim()) : ""; };
-        var text = "Ort oder Anliegen: " + wert("ort") + "\n\n" + wert("anliegen") + "\n\nName: " + wert("name") +
+        var text = "Thema oder Betreff: " + wert("ort") + "\n\n" + wert("anliegen") + "\n\nName: " + wert("name") +
           "\nQuartier: " + wert("quartier") + "\nE-Mail: " + wert("email") +
           "\nNachfragen erlaubt: " + wert("rueckfrage");
         location.href = "mailto:" + form.dataset.mail + "?subject=" + encodeURIComponent("Säg mer, wo: " + wert("ort")) + "&body=" + encodeURIComponent(text);
