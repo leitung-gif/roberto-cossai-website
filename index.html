@@ -35,6 +35,7 @@
 .vision-punkte { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--abstand-4) var(--spalte); }
 .vision-punkte p { max-width: var(--mass); }
 @media (max-width: 860px) { .vision-punkte { grid-template-columns: minmax(0, 1fr); } }
+.wahl-anleitung { margin-block: var(--abstand-4); max-width: var(--mass); }
 </style>
 </head>
 <body>
@@ -169,16 +170,19 @@
 </div></section>
 
 <section class="flaeche-marke abschnitt"><div class="raster">
-<div class="wahl-kopf"><h2>So wählst du mich.</h2>
-<p class="wahl-ruf" lang="gsw">Schrib mech zwöimol.</p>
+<div class="wahl-kopf"><h2 id="wahl" data-cms-text="wahlhilfe_titel">So wählst du mich</h2>
+<p class="wahl-ruf" lang="gsw" data-cms-text="wahlhilfe_dialekt">Schrib mech zwöimol.</p>
+<p class="wahl-anleitung" data-cms-text="wahlhilfe_kumulieren">Mein Name darf insgesamt zweimal auf dem Wahlzettel stehen. Steht er auf der FDP-Liste einmal, schreib ihn von Hand in eine freie Zeile. Ist keine Zeile frei, streich dafür einen anderen Namen. Steht mein Name schon zweimal auf der Liste, musst du nichts ändern.</p>
 <div class="zettel" aria-hidden="true"><p class="zettel-kopf"><strong>Liste 4</strong> FDP.Die Liberalen</p>
 <ol><li></li><li class="name">Cossai Roberto</li><li class="name">Cossai Roberto</li><li></li></ol></div></div>
 <dl class="wahl-fakten">
-<div><dt>Wann</dt><dd>21.03.2027</dd></div>
-<div><dt>Was</dt><dd>Kantonsrat Luzern, Amtsdauer 2027 bis 2031</dd></div>
-<div><dt>Wo</dt><dd>Wahlkreis Luzern-Stadt, 23 Sitze</dd></div>
-<div><dt>Liste</dt><dd>Liste 4, FDP.Die Liberalen</dd></div>
-<div><dt>Zweimal</dt><dd>Du darfst meinen Namen zweimal auf die Liste schreiben.</dd></div>
+<div><dt>Wahltag</dt><dd data-cms-text="wahlhilfe_wahltag">Sonntag, 21. März 2027</dd></div>
+<div><dt>Wahl</dt><dd data-cms-text="wahlhilfe_wahl">Luzerner Kantonsrat, Amtsdauer 2027-2031</dd></div>
+<div><dt>Wahlkreis</dt><dd data-cms-text="wahlhilfe_wahlkreis">Luzern-Stadt</dd></div>
+<div><dt>Liste</dt><dd data-cms-text="wahlhilfe_liste">Liste 4 · FDP.Die Liberalen</dd></div>
+<div><dt>Mein Listenplatz</dt><dd data-cms-text="wahlhilfe_listenplatz">5</dd></div>
+<div><dt>Brieflich wählen</dt><dd data-cms-text="wahlhilfe_brieflich">Unterschreib den Stimmrechtsausweis. Gib das Rücksendekuvert so früh zur Post, dass es bis Freitag, 19. März 2027, bei der Stadt Luzern eintrifft. Du kannst es auch direkt in einen dafür vorgesehenen Briefkasten der Stadt einwerfen.</dd></div>
+<div><dt>Persönlich wählen</dt><dd data-cms-text="wahlhilfe_persoenlich">Am Sonntag, 21. März 2027, im Urnenlokal. Ort und Öffnungszeiten findest du in deinen Wahlunterlagen.</dd></div>
 </dl>
 </div></section>
 
