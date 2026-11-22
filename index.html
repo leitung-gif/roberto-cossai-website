@@ -36,6 +36,7 @@
 .vision-punkte p { max-width: var(--mass); }
 @media (max-width: 860px) { .vision-punkte { grid-template-columns: minmax(0, 1fr); } }
 .wahl-anleitung { margin-block: var(--abstand-4); max-width: var(--mass); }
+.wahl-fakten .wahl-hinweis { font: 400 var(--gr-text)/1.5 var(--text); }
 </style>
 </head>
 <body>
@@ -169,8 +170,8 @@
 <p class="register-fuss">Unten in jedem Feld: ein Beispiel, so sieht ein Eintrag aus.</p>
 </div></section>
 
-<section class="flaeche-marke abschnitt"><div class="raster">
-<div class="wahl-kopf"><h2 id="wahl" data-cms-text="wahlhilfe_titel">So wählst du mich</h2>
+<section class="flaeche-marke abschnitt" id="wahl" aria-labelledby="wahl-titel"><div class="raster">
+<div class="wahl-kopf"><h2 id="wahl-titel" data-cms-text="wahlhilfe_titel">So wählst du mich</h2>
 <p class="wahl-ruf" lang="gsw" data-cms-text="wahlhilfe_dialekt">Schrib mech zwöimol.</p>
 <p class="wahl-anleitung" data-cms-text="wahlhilfe_kumulieren">Mein Name darf insgesamt zweimal auf dem Wahlzettel stehen. Steht er auf der FDP-Liste einmal, schreib ihn von Hand in eine freie Zeile. Ist keine Zeile frei, streich dafür einen anderen Namen. Steht mein Name schon zweimal auf der Liste, musst du nichts ändern.</p>
 <div class="zettel" aria-hidden="true"><p class="zettel-kopf"><strong>Liste 4</strong> FDP.Die Liberalen</p>
@@ -181,8 +182,8 @@
 <div><dt>Wahlkreis</dt><dd data-cms-text="wahlhilfe_wahlkreis">Luzern-Stadt</dd></div>
 <div><dt>Liste</dt><dd data-cms-text="wahlhilfe_liste">Liste 4 · FDP.Die Liberalen</dd></div>
 <div><dt>Mein Listenplatz</dt><dd data-cms-text="wahlhilfe_listenplatz">5</dd></div>
-<div><dt>Brieflich wählen</dt><dd data-cms-text="wahlhilfe_brieflich">Unterschreib den Stimmrechtsausweis. Gib das Rücksendekuvert so früh zur Post, dass es bis Freitag, 19. März 2027, bei der Stadt Luzern eintrifft. Du kannst es auch direkt in einen dafür vorgesehenen Briefkasten der Stadt einwerfen.</dd></div>
-<div><dt>Persönlich wählen</dt><dd data-cms-text="wahlhilfe_persoenlich">Am Sonntag, 21. März 2027, im Urnenlokal. Ort und Öffnungszeiten findest du in deinen Wahlunterlagen.</dd></div>
+<div><dt>Brieflich wählen</dt><dd class="wahl-hinweis" data-cms-text="wahlhilfe_brieflich">Unterschreib den Stimmrechtsausweis. Gib das Rücksendekuvert so früh zur Post, dass es bis Freitag, 19. März 2027, bei der Stadt Luzern eintrifft. Du kannst es auch direkt in einen dafür vorgesehenen Briefkasten der Stadt einwerfen.</dd></div>
+<div><dt>Persönlich wählen</dt><dd class="wahl-hinweis" data-cms-text="wahlhilfe_persoenlich">Am Sonntag, 21. März 2027, im Urnenlokal. Ort und Öffnungszeiten findest du in deinen Wahlunterlagen.</dd></div>
 </dl>
 </div></section>
 
