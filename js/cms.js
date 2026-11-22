@@ -96,8 +96,8 @@
     var teile = absatzTeile(text);
     return teile.length > 1 ? teile.map(function (teil) { return "<p>" + h(teil) + "</p>"; }).join("") : h(text);
   }
-  function themaZeile(t, offen) {
-    return '<details class="thema-zeile" name="thema"' + (offen ? " open" : "") + '>\n<summary><span class="thema-marke">' + h(t.navTitel) + '</span><span class="thema-frage-gross">' + h(t.frage) +
+  function themaZeile(t, offen, frage) {
+    return '<details class="thema-zeile" name="thema"' + (offen ? " open" : "") + '>\n<summary><span class="thema-marke">' + h(t.navTitel) + '</span><span class="thema-frage-gross">' + h(frage || t.frage) +
       '</span><span class="zeichen" aria-hidden="true"></span></summary>\n<div class="thema-antwort"><p class="thema-kern">' + h(t.kern) + "</p><p>" + h(t.id === "sicherheit" || t.id === "wohnen" ? (t.uebersicht || t.kurz) : t.kurz) +
       '</p>\n<p class="thema-wege"><a class="knopf knopf-mundart" lang="gsw" href="' + B + "/kontakt.html?thema=" + h(t.id) + '">' + h(t.zuruf) + '</a><a href="' + B +
       "/positionen/" + h(t.id) + '.html">Meine Position lesen</a></p></div>\n</details>';
@@ -204,7 +204,7 @@
     hinweis.hidden = !vorlage;
     hinweis.innerHTML = vorlage ? vorlage.innerHTML : "";
   }
-  function positionen(daten) {
+  function positionen(daten, ein) {
     var liste = sichtbar(daten).filter(function (x) { return x.slug; }).sort(reihe).map(thema);
     if (!liste.length) return;
     var gesundheit = liste.find(function (t) { return t.id === "gesundheit"; });
@@ -217,7 +217,11 @@
       var offen = x.querySelector("details[open] .thema-marke");
       var start = liste.filter(function (t) { return t.start || (t === gesundheit && !gesundheitAusWix); });
       var o = offen ? offen.textContent : (start[0] || {}).navTitel;
-      positionsMarkup(x, start, function (t) { return themaZeile(t, t.navTitel === o); });
+      positionsMarkup(x, start, function (t) {
+        var schluessel = "startseite_frage_" + t.id;
+        var lokal = x.querySelector('[data-cms-text="' + schluessel + '"]');
+        return themaZeile(t, t.navTitel === o, ein[schluessel] || (lokal && lokal.textContent));
+      });
     });
     document.querySelectorAll('[data-cms="positionen-liste"]').forEach(function (x) {
       positionsMarkup(x, liste, themaBlock);
@@ -335,7 +339,7 @@
     });
   }).then(function (s) {
     var ein = einstellungen(s.Einstellungen || []);
-    if (s.Positionen) positionen(s.Positionen);
+    if (s.Positionen) positionen(s.Positionen, ein);
     abstimmungAnzeigen(ein);
     if (s.Termine) termine(s.Termine);
     if (s.News) news(s.News);
