@@ -109,6 +109,19 @@ a:hover { color: var(--farbe-rolle-accent); }
 .zug-gross { padding: .1em .26em .14em; background: var(--farbe-rolle-surface-invert); color: var(--farbe-rolle-on-invert); font-size: 5.2cqw; font-weight: 800; letter-spacing: -.01em; white-space: nowrap; }
 .film-hinweis { position: absolute; left: 0; right: 0; top: 0; padding: var(--abstand-2) var(--abstand-4); background: var(--farbe-rolle-on-surface); color: var(--farbe-rolle-surface); font: 600 1.0625rem/1.3 var(--titel); }
 .film iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.film-ohne .film-play { gap: .5em; padding-bottom: .15em; border-bottom: .35cqw solid currentColor; align-self: flex-start; }
+.film-ohne .film-start:hover .film-play { color: var(--farbe-rolle-accent); }
+/* Videos vom Studiotag: Tafel mit Startknopf, YouTube erst nach dem Klick */
+.videos { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: var(--spalte); }
+.video { position: relative; container-type: inline-size; aspect-ratio: 16 / 9; background: var(--farbe-rolle-surface-invert); }
+.video-start { display: flex; }
+.video-tafel { display: flex; flex-direction: column; justify-content: flex-end; gap: 2.4cqw; width: 100%; padding: 6cqw; color: var(--farbe-rolle-on-invert); }
+.video-titel { font: 800 7cqw/1.05 var(--titel); letter-spacing: -.01em; }
+.video-unter { font: 600 3.6cqw/1.2 var(--titel); opacity: .8; }
+.video .film-dreieck { width: 14cqw; height: 14cqw; margin-bottom: auto; }
+.video .film-dreieck::after { border-block-width: 2.6cqw; border-left-width: 4.2cqw; }
+.video-start:hover .film-dreieck { background: var(--farbe-rolle-brand); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .rahmen { position: relative; aspect-ratio: 863 / 1110; max-height: calc(100svh - var(--kopf) - var(--abstand-16)); margin-inline: auto; }
 .rahmen picture { position: absolute; left: 8.23%; top: 1.8%; width: 89.46%; } /* genau innerhalb der Rahmenlinie (Strich 20 wie im Logo) */
 .rahmen img { width: 100%; }

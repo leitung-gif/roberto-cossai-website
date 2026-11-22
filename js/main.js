@@ -30,22 +30,21 @@
     aufrufe.forEach(function (a) { beobachter.observe(a); });
   }
 
-  // Film: YouTube lädt erst nach dem Klick. Im Entwurf ohne Video nur ein Hinweis.
+  // Filme: YouTube lädt erst nach dem Klick (youtube-nocookie). Ohne ID ist die Tafel ein gewöhnlicher Link.
   var ruhig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var film = document.querySelector(".film");
-  if (film) {
-    film.querySelector(".film-start").addEventListener("click", function (e) {
+  document.querySelectorAll("[data-youtube]").forEach(function (film) {
+    var id = film.dataset.youtube, start = film.querySelector(".film-start");
+    if (!id || !start) return;
+    start.addEventListener("click", function (e) {
       e.preventDefault();
-      var id = film.dataset.youtube;
-      if (!id) { film.querySelector(".film-hinweis").hidden = false; return; }
       var rahmen = document.createElement("iframe");
-      rahmen.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&cc_load_policy=1";
-      rahmen.title = "Roberto Cossai stellt sich vor";
+      rahmen.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0&cc_load_policy=1";
+      rahmen.title = start.getAttribute("aria-label") || "Video von Roberto Cossai";
       rahmen.allow = "autoplay; encrypted-media; fullscreen";
       rahmen.allowFullscreen = true;
       film.replaceChildren(rahmen);
     });
-  }
+  });
 
   // Stimmen: Knöpfe führen die Spur, Wischen und Tastatur gehen ohne sie
   var spur = document.querySelector(".stimmen-spur");
@@ -158,4 +157,18 @@
       });
     });
   });
+})();
+
+/* Kopf: oben das Hauptlogo, nach dem Scrollen das Monogramm. Hysterese gegen Flackern. */
+(function () {
+  var kopf = document.querySelector(".kopf");
+  if (!kopf) return;
+  var kompakt = false;
+  function pruefe() {
+    var y = window.scrollY || 0;
+    if (!kompakt && y > 160) { kompakt = true; kopf.classList.add("kompakt"); }
+    else if (kompakt && y < 40) { kompakt = false; kopf.classList.remove("kompakt"); }
+  }
+  window.addEventListener("scroll", pruefe, { passive: true });
+  pruefe();
 })();
