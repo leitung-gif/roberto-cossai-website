@@ -1,12 +1,11 @@
-/* Billboard: Besucherinnen und Besucher posten ein Thema, Roberto schaltet es im Wix-CMS frei (Sammlung «Billboard», Häkchen «Freigegeben»).
-   Sichtbar ist nur, was freigegeben ist UND nach dem Eingang von einem Admin bearbeitet wurde. Besucher dürfen nur einfügen,
-   nie ändern: ein beim Posten mitgeschicktes «freigegeben» bleibt darum wirkungslos. Keine Cookies, kein Speicher im Browser. */
+/* Pinnwand: Eingaben bleiben in der privaten Wix-Sammlung «Billboard».
+   Die öffentliche Anzeige liest nur die separat von Admins gepflegte Freigabesammlung. */
 (function () {
   "use strict";
   var CLIENT = "e3e490e0-547d-42ad-becf-f52c5acb338f"; // öffentliche Client-ID wie in cms.js, kein Geheimnis
   var API = "https://www.wixapis.com/";
-  var SAMMLUNG = "Billboard";
-  var ADMIN_SPUR_MS = 1500; // Abstand zwischen Eingang und Bearbeitung, ab dem ein Eintrag als von Roberto geprüft gilt
+  var EINGANG = "Billboard";
+  var FREIGEGEBEN = "PinnwandFreigegeben";
   var MAX = 140;
 
   var tafel = document.querySelector("[data-billboard]");
@@ -18,12 +17,12 @@
   var fussText = tafel.querySelector(".bb-stand");
   var umschalten = tafel.querySelector(".bb-umschalten");
   var form = document.querySelector(".bb-form form");
-  var geladen = Date.now();
   var zuletzt = 0;
   var eintraege = [];
   var aktiv = "alle";
   var alsListe = false;
   var token = null;
+  var status = "laden";
 
   function h(t) { return String(t == null ? "" : t).replace(/[&<>"']/g, function (z) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#x27;" }[z]; }); }
   function datum(d) { d = new Date(d); return isNaN(d) ? "" : ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth() + 1)).slice(-2) + "." + d.getFullYear(); }
@@ -47,18 +46,19 @@
   // ------------------------------------------------ Laden
   function laden() {
     return holeToken().then(function (tok) {
-      var q = { dataCollectionId: SAMMLUNG, query: { filter: { freigegeben: true }, sort: [{ fieldName: "_createdDate", order: "DESC" }], paging: { limit: 100 } } };
+      var q = { dataCollectionId: FREIGEGEBEN, query: { sort: [{ fieldName: "_createdDate", order: "DESC" }], paging: { limit: 100 } } };
       return post("wix-data/v2/items/query", q, tok);
     }).then(function (d) {
       var roh = (d.dataItems || []).map(function (x) { return x.data; }).filter(function (x) {
-        var ein = zeit(x._createdDate), neu = zeit(x._updatedDate);
-        return x.freigegeben === true && THEMEN[x.thema] && typeof x.text === "string" && x.text.trim() && neu - ein > ADMIN_SPUR_MS;
+        return Object.prototype.hasOwnProperty.call(THEMEN, x.thema) && typeof x.title === "string" && x.title.trim();
       });
       eintraege = buendeln(roh);
+      status = "bereit";
       zaehlen();
       zeigen();
     }).catch(function () {
-      feld.innerHTML = '<p class="bb-leer">Das Billboard lädt gerade nicht. Versuch es in einem Moment noch einmal.</p>';
+      status = "fehler";
+      zeigen();
     });
   }
 
@@ -66,7 +66,7 @@
   function buendeln(liste) {
     var karte = {};
     liste.forEach(function (x) {
-      var text = x.text.trim().slice(0, MAX), k = x.thema + "|" + schluessel(text);
+      var text = x.title.trim().slice(0, MAX), k = x.thema + "|" + schluessel(text);
       var t = zeit(x._createdDate);
       if (!karte[k]) karte[k] = { thema: x.thema, text: text, anzahl: 0, neu: t, id: x._id };
       karte[k].anzahl += 1;
@@ -99,11 +99,16 @@
   }
 
   function zeigen() {
+    if (status === "laden") return;
+    if (status === "fehler") {
+      feld.innerHTML = '<p class="bb-leer">Die Pinnwand konnte gerade nicht geladen werden. Versuch es gleich noch einmal.</p>';
+      return;
+    }
     var liste = eintraege.filter(function (x) { return aktiv === "alle" || x.thema === aktiv; });
     var name = aktiv === "alle" ? "" : THEMEN[aktiv];
     if (!liste.length) {
-      feld.innerHTML = '<p class="bb-leer">' + (name ? "Zu " + h(name) + " steht noch nichts." : "Das Billboard ist noch leer.") +
-        ' Der erste Eintrag kann deiner sein.<br><a href="#bb-schreiben">Thema posten</a></p>';
+      feld.innerHTML = '<p class="bb-leer">' + (name ? "Zu «" + h(name) + "» steht noch nichts." : "Die Pinnwand ist noch leer.") +
+        ' Der erste Eintrag kann deiner sein.<br><a href="#bb-schreiben">Eintrag schreiben</a></p>';
       fussText.textContent = "";
       umschalten.hidden = true;
       return;
@@ -160,6 +165,7 @@
   if (form) {
     var text = form.querySelector("#bb-text"), zaehler = form.querySelector(".bb-zaehler"), antwort = form.querySelector(".antwort");
     var knopf = form.querySelector("button[type=submit]");
+    knopf.disabled = false;
     function zaehle() {
       var rest = MAX - text.value.length;
       zaehler.textContent = rest + " Zeichen frei";
@@ -181,7 +187,7 @@
       antwort.textContent = ""; antwort.classList.remove("gut");
       var thema = (form.querySelector('input[name="thema"]:checked') || {}).value || "";
       var wert = text.value.replace(/\s+/g, " ").trim();
-      var ok = fehler("thema", THEMEN[thema] ? "" : "Wähl ein Thema.");
+      var ok = fehler("thema", Object.prototype.hasOwnProperty.call(THEMEN, thema) ? "" : "Wähl ein Thema.");
       var meldung = "";
       if (wert.length < 3) meldung = "Schreib in ein paar Worten, was dir wichtig ist.";
       else if (wert.length > MAX) meldung = "Höchstens " + MAX + " Zeichen.";
@@ -190,24 +196,24 @@
       else if (/(\d[\s/.-]?){7,}/.test(wert)) meldung = "Bitte ohne Telefonnummern.";
       ok = fehler("text", meldung) && ok;
       if (!ok) { (form.querySelector("[aria-invalid=true] input, #bb-text[aria-invalid=true]") || text).focus(); return; }
-      // Spam: verstecktes Feld, zu schnell nach dem Laden, zu schnell hintereinander. Antwort wie bei Erfolg, nichts wird gesendet.
+      // Das versteckte Feld fängt einfache Formularbots ab.
       var topf = form.querySelector(".topf input");
-      if ((topf && topf.value) || Date.now() - geladen < 2500) { danke(); return; }
-      if (Date.now() - zuletzt < 60000) { antwort.textContent = "Danke, dein letzter Eintrag ist eben eingegangen. Warte bitte eine Minute bis zum nächsten."; return; }
-      knopf.disabled = true; knopf.textContent = "Wird gepostet …";
+      if (topf && topf.value) { danke(); return; }
+      if (Date.now() - zuletzt < 60000) { antwort.textContent = "Dein letzter Eintrag ist gerade angekommen. Warte bitte eine Minute, bevor du den nächsten abschickst."; return; }
+      knopf.disabled = true; knopf.textContent = "Wird gesendet …";
       holeToken().then(function (tok) {
-        return post("wix-data/v2/items", { dataCollectionId: SAMMLUNG, dataItem: { data: { thema: thema, text: wert } } }, tok);
+        return post("wix-data/v2/items", { dataCollectionId: EINGANG, dataItem: { data: { thema: thema, text: wert } } }, tok);
       }).then(function () {
         zuletzt = Date.now();
         danke();
       }).catch(function () {
-        antwort.textContent = "Das hat nicht geklappt. Versuch es bitte noch einmal oder schreib mir an hallo@robertocossai.ch.";
-      }).then(function () { knopf.disabled = false; knopf.textContent = "Posten"; });
+        antwort.textContent = "Dein Eintrag konnte nicht gesendet werden. Versuch es noch einmal oder schreib mir an hallo@robertocossai.ch.";
+      }).then(function () { knopf.disabled = false; knopf.textContent = "Eintrag abschicken"; });
     });
     function danke() {
       text.value = ""; zaehle();
       antwort.classList.add("gut");
-      antwort.textContent = "Danke. Dein Eintrag ist bei mir angekommen. Sobald ich ihn gelesen und freigegeben habe, steht er auf dem Billboard.";
+      antwort.textContent = "Danke, dein Eintrag ist angekommen. Er erscheint an der Pinnwand, wenn ich ihn freigebe.";
       antwort.focus();
     }
   }
