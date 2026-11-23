@@ -1,6 +1,8 @@
 /* Billboard: Themen der Besucherinnen und Besucher, erst nach Robertos Freigabe sichtbar. Eigene Datei, main.css bleibt unberührt. */
 
 .bb-kopf h1 { max-width: 11.5em; }
+.bb-zuruf { grid-column: 1 / -1; font: 700 var(--gr-mittel)/1.15 var(--titel); }
+.bb-kontakt { margin-top: var(--abstand-6); }
 
 /* Tafel */
 .bb-tafel { padding-block: var(--abstand-16) var(--abstand-12); }
@@ -16,8 +18,8 @@
 .bb-feld:focus-visible { outline-color: var(--farbe-rolle-focus-invert); }
 
 /* Wolke: Typografie statt Wortsalat. Keine Drehung, vier Grössenstufen, eine Akzentfarbe. */
-.bb-wolke { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: .35em 1.1em; max-width: 68rem; text-align: center; }
-.bb-wolke li { font-family: var(--titel); line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; max-width: 18em; opacity: 0; transform: translateY(.35em); animation: bb-auftritt var(--bewegung-dauer-auftritt) var(--bewegung-kurve-ein) forwards; animation-delay: calc(var(--i, 0) * 40ms); }
+.bb-wolke { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: .35em 1.1em; width: 100%; max-width: 68rem; text-align: center; }
+.bb-wolke li { font-family: var(--titel); line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; max-width: min(18em, 100%); overflow-wrap: anywhere; opacity: 0; transform: translateY(.35em); animation: bb-auftritt var(--bewegung-dauer-auftritt) var(--bewegung-kurve-ein) forwards; animation-delay: calc(var(--i, 0) * 40ms); }
 .bb-wolke .s1 { font-size: clamp(1rem, .95rem + .3vw, 1.25rem); font-weight: 500; color: rgba(255, 255, 255, .8); }
 .bb-wolke .s2 { font-size: clamp(1.25rem, 1.1rem + .7vw, 1.75rem); font-weight: 600; color: rgba(255, 255, 255, .9); }
 .bb-wolke .s3 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.5rem); font-weight: 700; color: var(--farbe-rolle-on-invert); }
@@ -32,8 +34,8 @@
 
 /* Liste als Alternative */
 .bb-liste { width: 100%; max-width: 60rem; border-top: 2px solid var(--farbe-rolle-on-invert); }
-.bb-liste li { display: grid; grid-template-columns: 1fr auto; gap: var(--abstand-1) var(--abstand-6); padding-block: var(--abstand-4); border-bottom: 1px solid rgba(255, 255, 255, .22); }
-.bb-liste .bb-text { font: 600 1.25rem/1.3 var(--titel); }
+.bb-liste li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--abstand-1) var(--abstand-6); padding-block: var(--abstand-4); border-bottom: 1px solid rgba(255, 255, 255, .22); }
+.bb-liste .bb-text { overflow-wrap: anywhere; font: 600 1.25rem/1.3 var(--titel); }
 .bb-liste .bb-meta { font-size: var(--gr-fein); opacity: .75; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums lining-nums; }
 
 .bb-fuss { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--abstand-4) var(--abstand-8); font-size: var(--gr-fein); }
@@ -77,6 +79,6 @@
   .bb-reiter button { flex: none; scroll-snap-align: start; }
   .bb-feld { padding-block: var(--abstand-8); }
   .bb-wolke { gap: .3em .8em; }
-  .bb-liste li { grid-template-columns: 1fr; }
+  .bb-liste li { grid-template-columns: minmax(0, 1fr); }
   .bb-liste .bb-meta { text-align: left; }
 }
