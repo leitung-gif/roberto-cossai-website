@@ -31,6 +31,12 @@
 <link rel="stylesheet" href="/roberto-cossai-website/css/main.css?v=videoplaetze">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://leitung-gif.github.io/roberto-cossai-website/#roberto", "name": "Roberto Cossai", "url": "https://leitung-gif.github.io/roberto-cossai-website/", "email": "hallo@robertocossai.ch", "image": "https://leitung-gif.github.io/roberto-cossai-website/bilder/roberto-960.jpg", "jobTitle": "Kandidat für den Kantonsrat Luzern", "memberOf": {"@type": "Organization", "name": "FDP.Die Liberalen Stadt Luzern"}, "sameAs": ["https://www.linkedin.com/in/roberto-cossai/", "https://www.instagram.com/roberto.cossai/"]}, {"@type": "Organization", "@id": "https://leitung-gif.github.io/roberto-cossai-website/#kampagne", "name": "Roberto Cossai, Kampagne Kantonsrat 2027", "legalName": "Roberto Cossai", "url": "https://leitung-gif.github.io/roberto-cossai-website/", "logo": "https://leitung-gif.github.io/roberto-cossai-website/logo/22_roberto-cossai-logo-hell.png", "email": "hallo@robertocossai.ch", "founder": {"@id": "https://leitung-gif.github.io/roberto-cossai-website/#roberto"}, "address": {"@type": "PostalAddress", "addressLocality": "Luzern", "addressCountry": "CH"}, "sameAs": ["https://www.linkedin.com/in/roberto-cossai/", "https://www.instagram.com/roberto.cossai/"]}, {"@type": "WebSite", "@id": "https://leitung-gif.github.io/roberto-cossai-website/#seite", "name": "Roberto Cossai", "url": "https://leitung-gif.github.io/roberto-cossai-website/", "inLanguage": "de-CH"}]}</script>
 <style>
+.drei .wort-schritte { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--abstand-4) var(--spalte); margin-top: var(--abstand-8); }
+.wort-schritte div { padding-top: var(--abstand-3); border-top: 1px solid var(--farbe-rolle-line); }
+.wort-schritte dt { font: 700 1.125rem/1.2 var(--titel); }
+.wort-schritte dd { margin-top: var(--abstand-2); font-size: var(--gr-fein); color: var(--farbe-rolle-muted); }
+@media (max-width: 1080px) { .drei .wort-schritte { grid-column: 1 / -1; } }
+@media (max-width: 860px) { .drei .wort-schritte { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--abstand-6); } }
 .mission .zukunft { grid-column: 1 / -1; margin-top: var(--abstand-8); padding-top: 0; }
 .vision-punkte { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--abstand-4) var(--spalte); }
 .vision-punkte p { max-width: var(--mass); }
@@ -134,7 +140,13 @@
 <ul class="drei">
 <li><h3>Zuhören</h3><p data-cms-text="erwartungen_zuhoeren_text">Ich frage nach, bevor ich urteile, und nehme ernst, was du mir erzählst.</p><span class="zuruf"><span class="mundart" lang="gsw" data-cms-text="erwartungen_zuhoeren_zuruf">Säg mer, wo.</span></span></li>
 <li><h3>Klartext reden</h3><p data-cms-text="erwartungen_klartext_text">Ich sage, wo ich stehe und wo meine Möglichkeiten enden. Wenn ich etwas anders sehe, spreche ich es an, auch in meiner eigenen Partei.</p><span class="zuruf"><span class="mundart" lang="gsw" data-cms-text="erwartungen_klartext_zuruf">Grad use.</span></span></li>
-<li><h3>Handeln</h3><p data-cms-text="erwartungen_handeln_text">Ich nenne dir den nächsten Schritt, den ich machen kann. Sage ich ihn zu, melde ich mich wieder und erzähle dir, was daraus geworden ist, auch wenn sich wenig bewegt hat.</p><span class="zuruf"><span class="mundart" lang="gsw" data-cms-text="erwartungen_handeln_zuruf">Nimm mech bim Wort.</span></span></li>
+<li><h3>Handeln</h3><p data-cms-text="erwartungen_handeln_text">Ich nenne dir den nächsten Schritt, den ich machen kann. Sage ich ihn zu, melde ich mich wieder und erzähle dir, was daraus geworden ist, auch wenn sich wenig bewegt hat.</p><span class="zuruf"><span class="mundart" lang="gsw" data-cms-text="erwartungen_handeln_zuruf">Nimm mech bim Wort.</span></span>
+<dl class="wort-schritte" id="wort">
+<div><dt>Anliegen</dt><dd data-cms-text="wort_anliegen_erklaerung">Was du mir geschildert hast.</dd></div>
+<div><dt>Nächster Schritt</dt><dd data-cms-text="wort_schritt_erklaerung">Was ich konkret unternehme.</dd></div>
+<div><dt>Zuständig</dt><dd data-cms-text="wort_zustaendig_erklaerung">Wer darüber entscheidet.</dd></div>
+<div><dt>Rückmeldung bis</dt><dd data-cms-text="wort_rueckmeldung_erklaerung">Bis wann du wieder von mir hörst.</dd></div>
+</dl></li>
 </ul>
 </div></section>
 
@@ -160,18 +172,6 @@
 <p class="stimme-wer"><span class="balken">Stimme aus der FDP</span><span class="balken balken-klein">Stadt Luzern</span><span class="stimme-muster">Muster</span></p></li></ul>
 </div></section>
 
-
-<section class="flaeche-nebel abschnitt"><div class="raster">
-<div class="register-kopf"><h2 id="wort" lang="gsw" data-cms-text="wort_titel">Nimm mech bim Wort</h2></div>
-<p class="register-text" data-cms-text="wort_einstieg">Wenn ich dir einen nächsten Schritt zusage, halte ich fest, was ich verstanden habe, was ich unternehme, wer entscheidet und bis wann du wieder von mir hörst. Ist bis dahin noch nichts entschieden, bekommst du einen Zwischenstand. Öffentlich wird dein Anliegen nur, wenn du einverstanden bist.</p>
-<dl class="register">
-<div><dt>Anliegen</dt><dd data-cms-text="wort_anliegen_erklaerung">Was du mir geschildert hast.</dd><dd class="eintrag" data-cms-text="wort_anliegen_beispiel">«Für eine Bewilligung musste ich dreimal an den Schalter.»</dd></div>
-<div><dt>Nächster Schritt</dt><dd data-cms-text="wort_schritt_erklaerung">Was ich konkret unternehme.</dd><dd class="eintrag" data-cms-text="wort_schritt_beispiel">Ich kläre mit der Bewilligungsstelle, ob du das Gesuch vollständig online einreichen kannst.</dd></div>
-<div><dt>Zuständig</dt><dd data-cms-text="wort_zustaendig_erklaerung">Wer darüber entscheidet.</dd><dd class="eintrag" data-cms-text="wort_zustaendig_beispiel">Die Behörde, die die Bewilligung ausstellt</dd></div>
-<div><dt>Rückmeldung bis</dt><dd data-cms-text="wort_rueckmeldung_erklaerung">Bis wann du wieder von mir hörst.</dd><dd class="eintrag" data-cms-text="wort_rueckmeldung_beispiel">In drei Wochen</dd></div>
-</dl>
-<p class="register-fuss">Unten in jedem Feld: ein Beispiel, so sieht ein Eintrag aus.</p>
-</div></section>
 
 <section class="flaeche-marke abschnitt" id="wahl" aria-labelledby="wahl-titel"><div class="raster">
 <div class="wahl-kopf"><h2 id="wahl-titel" data-cms-text="wahlhilfe_titel">So wählst du mich</h2>
