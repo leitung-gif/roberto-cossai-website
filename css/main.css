@@ -383,6 +383,8 @@ textarea { min-height: 176px; resize: vertical; }
 .topf { position: absolute; left: -9999px; }
 .antwort { margin-top: var(--abstand-4); font-weight: 600; }
 .antwort:empty { display: none; }
+.antwort.fehlschlag { color: var(--farbe-rolle-accent); }
+.antwort:focus { outline: none; }
 form .knopf { margin-top: var(--abstand-6); }
 .news { grid-column: 1 / span 7; }
 .news h2 { font-size: var(--gr-mittel); }
@@ -392,6 +394,9 @@ form .knopf { margin-top: var(--abstand-6); }
 .blatt { grid-column: 1 / span 8; max-width: var(--mass); padding-block: var(--abstand-8) var(--abstand-24); }
 .blatt h2 { font-size: var(--gr-klein); margin: var(--abstand-8) 0 var(--abstand-2); }
 .blatt p + p { margin-top: var(--abstand-4); }
+.blatt ul { list-style: disc; padding-left: 1.25em; margin-block: var(--abstand-2) var(--abstand-4); }
+.blatt li + li { margin-top: var(--abstand-1); }
+.blatt code { font-family: inherit; font-weight: 600; }
 
 /* Fuss */
 .fuss { padding-block: var(--abstand-16) var(--abstand-12); background: var(--farbe-rolle-on-surface); color: var(--farbe-rolle-surface); }

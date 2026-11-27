@@ -48,16 +48,16 @@
 
 <section class="abschnitt"><div class="raster">
 <div class="kontakt-form">
-<form action="mailto:hallo@robertocossai.ch?subject=S%C3%A4g%20mer%2C%20wo" method="post" enctype="text/plain" data-modus="mail" data-mail="hallo@robertocossai.ch" data-danke="Dein Mailprogramm öffnet sich mit deiner Nachricht an hallo@robertocossai.ch." novalidate>
-<div class="feld"><label for="ort">Thema oder Betreff</label><input id="ort" name="ort" type="text" required data-meldung="Gib ein Thema oder einen Betreff ein."><p class="fehler" data-fehler="ort"></p></div>
-<div class="feld"><label for="anliegen">Dein Anliegen</label><p class="hilfe" id="anliegen-hilfe">Was ist passiert oder was schlägst du vor? Wenn es um einen bestimmten Ort geht, nenn ihn.</p><textarea id="anliegen" name="anliegen" aria-describedby="anliegen-hilfe" required data-meldung="Beschreib bitte dein Anliegen."></textarea><p class="fehler" data-fehler="anliegen"></p></div>
-<div class="feld"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required data-meldung="Bitte gib deinen Namen an."><p class="fehler" data-fehler="name"></p></div>
-<div class="feld"><label for="quartier">Quartier <span class="frei">freiwillig</span></label><input id="quartier" name="quartier" type="text" autocomplete="address-level3"></div>
-<div class="feld"><label for="email">E-Mail-Adresse</label><input id="email" name="email" type="email" autocomplete="email" required data-meldung="Bitte gib eine gültige E-Mail-Adresse ein."><p class="fehler" data-fehler="email"></p></div>
+<form method="post" data-modus="wix" data-sammlung="Kontaktanfragen" data-danke="Danke, deine Nachricht ist angekommen. Wir melden uns bei dir." data-fehlschlag="Deine Nachricht konnte nicht gesendet werden. Versuch es noch einmal oder schreib direkt an hallo@robertocossai.ch." novalidate>
+<div class="feld"><label for="ort">Thema oder Betreff</label><input id="ort" name="ort" type="text" maxlength="120" required data-meldung="Gib ein Thema oder einen Betreff ein."><p class="fehler" data-fehler="ort"></p></div>
+<div class="feld"><label for="anliegen">Dein Anliegen</label><p class="hilfe" id="anliegen-hilfe">Was ist passiert oder was schlägst du vor? Wenn es um einen bestimmten Ort geht, nenn ihn.</p><textarea id="anliegen" name="anliegen" aria-describedby="anliegen-hilfe" maxlength="4000" required data-meldung="Beschreib bitte dein Anliegen."></textarea><p class="fehler" data-fehler="anliegen"></p></div>
+<div class="feld"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" maxlength="120" required data-meldung="Bitte gib deinen Namen an."><p class="fehler" data-fehler="name"></p></div>
+<div class="feld"><label for="quartier">Quartier <span class="frei">freiwillig</span></label><input id="quartier" name="quartier" type="text" autocomplete="address-level3" maxlength="120"></div>
+<div class="feld"><label for="email">E-Mail-Adresse</label><input id="email" name="email" type="email" autocomplete="email" maxlength="200" required data-meldung="Bitte gib eine gültige E-Mail-Adresse ein."><p class="fehler" data-fehler="email"></p></div>
 <div class="feld wahl"><input id="rueckfrage" name="rueckfrage" type="checkbox" checked><label for="rueckfrage">Ihr dürft bei mir nachfragen.</label></div>
 <div class="topf" aria-hidden="true"><label for="web">Website</label><input id="web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
 <p class="pruef-hinweis" data-cms-text="kontakt_freigabe_hinweis">Deine Nachricht dient der Kontaktaufnahme und Rückmeldung. Eine Veröffentlichung braucht deine separate Freigabe.</p>
-<button class="knopf" type="submit">E-Mail vorbereiten</button><p class="hilfe">Öffnet sich kein Mailprogramm? Schreib direkt an <a href="mailto:hallo@robertocossai.ch">hallo@robertocossai.ch</a>.</p><p class="antwort" role="status"></p>
+<button class="knopf" type="submit">Nachricht senden</button><p class="antwort" role="status" tabindex="-1"></p><p class="hilfe">Lieber per E-Mail? Schreib direkt an <a href="mailto:hallo@robertocossai.ch">hallo@robertocossai.ch</a>.</p>
 <p class="hilfe" style="margin-top:var(--abstand-4)">Wie wir mit deinen Angaben umgehen, steht im <a href="/roberto-cossai-website/datenschutz.html">Datenschutz</a>.</p>
 </form></div>
 <div class="kontakt-seite">

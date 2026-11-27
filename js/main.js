@@ -132,6 +132,52 @@
       if (!gut) return;
       var topf = form.querySelector(".topf input");
       if ((topf && topf.value) || Date.now() - start < 2000) return;
+      if (form.dataset.modus === "wix") {
+        // Nachricht in die private Wix-Sammlung (nur Admin liest), Wix meldet sie an hallo@robertocossai.ch
+        var feld = function (id) { var f = form.querySelector("#" + id); return f ? (f.type === "checkbox" ? f.checked : f.value.replace(/\s+$/, "").trim()) : ""; };
+        var knopfSenden = form.querySelector('button[type="submit"]');
+        var melden = function (text, gut) {
+          antwort.textContent = text;
+          antwort.classList.toggle("gut", !!gut);
+          antwort.classList.toggle("fehlschlag", !gut);
+          antwort.focus();
+        };
+        if (Date.now() - (form._zuletzt || 0) < 60000) { melden("Deine Nachricht ist gerade angekommen. Warte bitte eine Minute, bevor du die nächste schickst.", true); return; }
+        var API = "https://www.wixapis.com/";
+        var post = function (pfad, body, tok) {
+          var kopf = { "Content-Type": "application/json" };
+          if (tok) kopf.Authorization = tok;
+          return fetch(API + pfad, { method: "POST", headers: kopf, body: JSON.stringify(body) }).then(function (r) {
+            if (!r.ok) throw new Error(r.status);
+            return r.json();
+          });
+        };
+        var daten = {
+          title: feld("ort"),
+          anliegen: feld("anliegen"),
+          name: feld("name"),
+          quartier: feld("quartier"),
+          email: feld("email"),
+          rueckfrage: feld("rueckfrage"),
+          seite: location.pathname + location.search
+        };
+        knopfSenden.disabled = true;
+        var knopfText = knopfSenden.textContent;
+        knopfSenden.textContent = "Wird gesendet …";
+        post("oauth2/token", { clientId: "e3e490e0-547d-42ad-becf-f52c5acb338f", grantType: "anonymous" }).then(function (d) {
+          return post("wix-data/v2/items", { dataCollectionId: form.dataset.sammlung, dataItem: { data: daten } }, d.access_token);
+        }).then(function () {
+          form._zuletzt = Date.now();
+          form.reset();
+          melden(form.dataset.danke, true);
+        }).catch(function () {
+          melden(form.dataset.fehlschlag, false);
+        }).then(function () {
+          knopfSenden.disabled = false;
+          knopfSenden.textContent = knopfText;
+        });
+        return;
+      }
       if (form.dataset.modus === "mail") {
         // Entwurf ohne Server: Nachricht an das Postfach, veröffentlicht wird nur nach Prüfung
         var wert = function (id) { var f = form.querySelector("#" + id); return f ? (f.type === "checkbox" ? (f.checked ? "ja" : "nein") : f.value.trim()) : ""; };
