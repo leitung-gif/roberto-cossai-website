@@ -31,12 +31,23 @@
 <link rel="stylesheet" href="/roberto-cossai-website/css/main.css?v=videoplaetze">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://leitung-gif.github.io/roberto-cossai-website/"}, {"@type": "ListItem", "position": 2, "name": "Positionen", "item": "https://leitung-gif.github.io/roberto-cossai-website/positionen.html"}, {"@type": "ListItem", "position": 3, "name": "Bildung", "item": "https://leitung-gif.github.io/roberto-cossai-website/positionen/bildung.html"}]}</script>
 <style>
-[data-slug="bildung"] .thema-text ul {
+[data-slug="bildung"] .thema-felder dd > h3 {
+  font: inherit;
+  letter-spacing: inherit;
+  text-wrap: wrap;
+}
+[data-slug="bildung"] .thema-felder dd > h3 + p,
+[data-slug="bildung"] .thema-felder dd > p + h3,
+[data-slug="bildung"] .thema-felder dd > ul > li + li,
+[data-slug="bildung"] .thema-felder dd > ul + .quelle {
+  margin-block-start: var(--abstand-4);
+}
+
+[data-slug="bildung"] .thema-felder dd > ul {
   list-style: disc;
   padding-inline-start: 1.35em;
-  margin-block: 0.65em 0;
+  margin-block: var(--abstand-2) 0;
 }
-[data-slug="bildung"] .thema-text li + li { margin-top: 0.55em; }
 </style>
 </head>
 <body>
@@ -56,64 +67,60 @@
 <section class="thema"><div class="raster">
 <h2>Meine Position</h2>
 <div class="thema-text">
-<ul>
-<li>Gute Bildung zeigt sich am Ergebnis. Wer die Schule verlässt, soll Texte verstehen, mit Zahlen umgehen und sich verständigen können. Das braucht es, um einen Vertrag zu verstehen, eine Steuererklärung auszufüllen oder sich vor einer Abstimmung eine Meinung zu bilden.</li>
-<li>Ich schaue auf den ganzen Weg: vom Kindergarten über Lehre, Gymnasium und Hochschule bis zur Weiterbildung im Erwachsenenalter.</li>
-<li>Der Kanton setzt klare Ziele und prüft die Wirkung. Bringt ein Fach nach Jahren zu wenig, muss der Kanton den Unterricht verbessern.</li>
-<li>Wer als Erwachsener Lücken hat oder einen Abschluss nachholen will, muss den Weg dazu finden können.</li>
-</ul>
+<p class="thema-kern">Gute Bildung zeigt sich am Ergebnis. Wer die Schule verlässt, soll Texte verstehen, mit Zahlen umgehen und sich verständigen können. Das braucht es, um einen Vertrag zu verstehen, eine Steuererklärung auszufüllen oder sich vor einer Abstimmung eine Meinung zu bilden.</p>
+<p>Ich schaue auf den ganzen Weg: vom Kindergarten über Lehre, Gymnasium und Hochschule bis zur Weiterbildung im Erwachsenenalter.</p>
+<p>Der Kanton setzt klare Ziele und prüft die Wirkung. Bringt ein Fach nach Jahren zu wenig, muss der Kanton den Unterricht verbessern.</p>
+<p>Wer als Erwachsener Lücken hat oder einen Abschluss nachholen will, muss den Weg dazu finden können.</p>
 <dl class="thema-felder">
 <div>
 <dt>Was belegt ist</dt>
 <dd>
 <ul>
-<li>Mathematik: 2024 erreichten in Luzern 68 % der Kinder am Ende der 2. Primarklasse die Grundkompetenzen, schweizweit waren es 76 %. Die nächste schweizweite Erhebung ist für 2028 vorgesehen. <a href="https://edudoc.ch/record/245968/files/uegk-2024_bericht.pdf" rel="noopener">Nationaler Bericht ÜGK Mathematik 2024</a></li>
-<li>Französisch: 2023 erreichten in Luzern 45 % der Jugendlichen am Ende der obligatorischen Schule die Grundkompetenzen im Leseverstehen. In der gesamten Testregion für Französisch als Fremdsprache waren es 51 %. <a href="https://edudoc.ch/record/240796/files/uegk-2023_bericht.pdf" rel="noopener">Nationaler Bericht ÜGK Sprachen 2023</a></li>
-<li>In der Schweiz haben rund 30 % der 16- bis 65-Jährigen in mindestens einem Bereich tiefe Grundkompetenzen: Lesen, Alltagsmathematik oder adaptives Problemlösen. <a href="https://dam-api.bfs.admin.ch/hub/api/dam/assets/33346117/master" rel="noopener">BFS, PIAAC-Ergebnisse für die Schweiz</a></li>
-<li>Seit 2020 gibt es im Kanton Luzern Bildungsgutscheine im Wert von 500 Franken für Kurse in Lesen, Schreiben, Rechnen und am Computer. Dazu kommen kostenlose Kurse am Weiterbildungszentrum Kanton Luzern. 2025 lösten Personen aus dem Kanton Luzern 1673 Bildungsgutscheine ein. <a href="https://beruf.lu.ch/-/media/Beruf/Dokumente/Dokumente_Formulare_Links/Berufslehre/Bildung_Berufsabschluss_fuer_Erwachsene/Grundkompetenzen_Erwachsene/Factsheet_Grundkompetenzen_2023.pdf" rel="noopener">Factsheet Grundkompetenzen</a> · <a href="https://bildung-z.ch/sites/default/files/inline-files/SVEB_Factsheet_2025.pdf" rel="noopener">SVEB-Auswertung 2025</a></li>
-<li>Erwachsene können auf vier Wegen einen Berufsabschluss erreichen. Zwei davon führen ohne Lehrvertrag zum Abschluss. Dafür braucht es mindestens fünf Jahre Berufserfahrung, davon einen Teil im angestrebten Beruf. <a href="https://beruf.lu.ch/-/media/Beruf/Dokumente/Dokumente_Formulare_Links/Berufslehre/Bildung_Berufsabschluss_fuer_Erwachsene/Wege_zum_Berufsabschluss/Berufsabschluss_Erwachsene_vier_Wege.pdf" rel="noopener">Vier Wege zum Berufsabschluss</a></li>
+<li><strong>Mathematik:</strong> 2024 erreichten in Luzern 68 % der Kinder am Ende der 2. Primarklasse die Grundkompetenzen, schweizweit waren es 76 %. Die nächste schweizweite Erhebung ist für 2028 vorgesehen. <span class="quelle"><a href="https://edudoc.ch/record/245968/files/uegk-2024_bericht.pdf" rel="noopener">Nationaler Bericht ÜGK Mathematik 2024</a></span></li>
+<li><strong>Französisch:</strong> 2023 erreichten in Luzern 45 % der Jugendlichen am Ende der obligatorischen Schule die Grundkompetenzen im Leseverstehen. In der gesamten Testregion für Französisch als Fremdsprache waren es 51 %. <span class="quelle"><a href="https://edudoc.ch/record/240796/files/uegk-2023_bericht.pdf" rel="noopener">Nationaler Bericht ÜGK Sprachen 2023</a></span></li>
+<li>In der Schweiz haben rund 30 % der 16- bis 65-Jährigen in mindestens einem Bereich tiefe Grundkompetenzen: Lesen, Alltagsmathematik oder adaptives Problemlösen. <span class="quelle"><a href="https://dam-api.bfs.admin.ch/hub/api/dam/assets/33346117/master" rel="noopener">BFS, PIAAC-Ergebnisse für die Schweiz</a></span></li>
+<li>Seit 2020 gibt es im Kanton Luzern Bildungsgutscheine im Wert von 500 Franken für Kurse in Lesen, Schreiben, Rechnen und am Computer. Dazu kommen kostenlose Kurse am Weiterbildungszentrum Kanton Luzern. 2025 lösten Personen aus dem Kanton Luzern 1673 Bildungsgutscheine ein. <span class="quelle"><a href="https://beruf.lu.ch/-/media/Beruf/Dokumente/Dokumente_Formulare_Links/Berufslehre/Bildung_Berufsabschluss_fuer_Erwachsene/Grundkompetenzen_Erwachsene/Factsheet_Grundkompetenzen_2023.pdf" rel="noopener">Factsheet Grundkompetenzen</a> · <a href="https://bildung-z.ch/sites/default/files/inline-files/SVEB_Factsheet_2025.pdf" rel="noopener">SVEB-Auswertung 2025</a></span></li>
+<li>Erwachsene können auf vier Wegen einen Berufsabschluss erreichen. Zwei davon führen ohne Lehrvertrag zum Abschluss. Dafür braucht es mindestens fünf Jahre Berufserfahrung, davon einen Teil im angestrebten Beruf. <span class="quelle"><a href="https://beruf.lu.ch/-/media/Beruf/Dokumente/Dokumente_Formulare_Links/Berufslehre/Bildung_Berufsabschluss_fuer_Erwachsene/Wege_zum_Berufsabschluss/Berufsabschluss_Erwachsene_vier_Wege.pdf" rel="noopener">Vier Wege zum Berufsabschluss</a></span></li>
 </ul>
 </dd>
 </div>
 <div>
 <dt>Wo ich stehe</dt>
 <dd>
-<h3>Ergebnis statt Stunden</h3>
+<h3><em>Ergebnis statt Stunden</em></h3>
 <p>Entscheidend ist nicht, wie viele Lektionen ein Fach hat, sondern was die Schülerinnen und Schüler damit lernen. Wer viele Jahre eine Sprache lernt und sie danach nicht sprechen kann, hat zu wenig davon. Dasselbe gilt, wenn nach der Schulzeit die Rechtschreibung nicht sitzt. Wie die Schulen die Ziele erreichen, entscheiden sie selbst.</p>
-<h3>Fürs Leben</h3>
+<h3><em>Fürs Leben</em></h3>
 <p>Bevor neue Projekte dazukommen, müssen die Grundlagen sitzen. Wer beim Lesen oder Rechnen zurückliegt, soll früh Unterstützung bekommen.</p>
-<h3>Französisch</h3>
+<h3><em>Französisch</em></h3>
 <p>Französisch muss im Alltag brauchbar sein. Luzern soll auch prüfen, ob Jugendliche am Ende der Schulzeit ein Gespräch auf Französisch verstehen und sich verständigen können. Daran messe ich, welche Änderungen beim Unterrichtsbeginn und bei der Sprechpraxis ich unterstütze.</p>
-<h3>Jeder Weg führt weiter</h3>
+<h3><em>Jeder Weg führt weiter</em></h3>
 <p>Eine Lehre ist so viel wert wie das Gymnasium. Niemand soll die Schule ohne Anschluss verlassen. Berufsmaturität, höhere Berufsbildung und Erwachsenenmatur halten die Wege offen.</p>
-<h3>Lernen hört nicht mit der Schule auf</h3>
+<h3><em>Lernen hört nicht mit der Schule auf</em></h3>
 <p>Wer als Erwachsener nicht gut lesen oder rechnen kann, schämt sich oft und fragt nicht nach. Luzern hat gute Angebote, aber sie müssen die Menschen auch erreichen. Arbeitgeber, RAV, Sozialdienste und Gemeinden sollen gezielt auf die Beratung hinweisen. Wer seit Jahren in einem Beruf arbeitet, soll den Abschluss nachholen können, ohne von vorne anzufangen. Diesen Weg gibt es, und er soll bekannter werden. <a href="https://beruf.lu.ch/Berufslehre/Bildung_und_Berufsabschluss_fuer_Erwachsene/Grundkompetenzen_Erwachsene/Beratung_und_Kurse" rel="noopener">Beratung und Kurse des Kantons Luzern</a></p>
 </dd>
 </div>
 <div>
 <dt>Was ich abwäge</dt>
-<dd>
-Tests messen nicht alles. Neugier, Teamarbeit oder Durchhaltewille zeigen sich in keiner Prozentzahl. Ohne Messung wissen wir aber nicht, ob eine Massnahme wirkt. Deshalb will ich beides: klare Ziele bei den Grundlagen und Freiraum für die Schulen, wie sie diese Ziele erreichen.
-</dd>
+<dd>Tests messen nicht alles. Neugier, Teamarbeit oder Durchhaltewille zeigen sich in keiner Prozentzahl. Ohne Messung wissen wir aber nicht, ob eine Massnahme wirkt. Deshalb will ich beides: klare Ziele bei den Grundlagen und Freiraum für die Schulen, wie sie diese Ziele erreichen.</dd>
 </div>
 <div>
 <dt>Was ich als Nächstes tue</dt>
 <dd>
 <p>Wenn ich in den Kantonsrat gewählt werde, verlange ich vom Regierungsrat Antworten zu drei Themen:</p>
 <ul>
-<li>Mathematik: Was tut der Kanton bis zur nächsten schweizweiten Erhebung 2028 für Kinder, die zurückliegen? Woran misst er, ob die Unterstützung hilft?</li>
-<li>Französisch: Welche Änderungen prüft Luzern? Wie will der Kanton feststellen, ob Jugendliche danach Gespräche besser verstehen und sich besser verständigen können?</li>
-<li>Erwachsenenbildung: Wen erreichen die Kurse für Grundkompetenzen, und wo brechen Teilnehmende ab? Wie viele Erwachsene holen im Kanton pro Jahr einen Berufsabschluss nach?</li>
+<li><strong>Mathematik:</strong> Was tut der Kanton bis zur nächsten schweizweiten Erhebung 2028 für Kinder, die zurückliegen? Woran misst er, ob die Unterstützung hilft?</li>
+<li><strong>Französisch:</strong> Welche Änderungen prüft Luzern? Wie will der Kanton feststellen, ob Jugendliche danach Gespräche besser verstehen und sich besser verständigen können?</li>
+<li><strong>Erwachsenenbildung:</strong> Wen erreichen die Kurse für Grundkompetenzen, und wo brechen Teilnehmende ab? Wie viele Erwachsene holen im Kanton pro Jahr einen Berufsabschluss nach?</li>
 </ul>
 </dd>
 </div>
 </dl>
 <div class="thema-frage">
-<p><strong>Wann hast du in der Schule, in der Lehre oder im Beruf gemerkt, dass dir etwas fehlt, um weiterzukommen?</strong></p>
-<a lang="gsw" href="/roberto-cossai-website/kontakt.html?thema=bildung">Säg mer, wo</a>
+<p><em>Wann hast du in der Schule, in der Lehre oder im Beruf gemerkt, dass dir etwas fehlt, um weiterzukommen?</em></p><a lang="gsw" href="/roberto-cossai-website/kontakt.html?thema=bildung">Säg mer, wo</a>
 </div>
 </div>
-</div></section>
+</div>
+</section>
 <section class="flaeche-nebel abschnitt"><div class="raster">
 <h2 class="abschnitt-titel">Weitere Positionen</h2>
 <ul class="sprungliste"><li><a href="/roberto-cossai-website/positionen/wohnen.html">Wohnen</a></li><li><a href="/roberto-cossai-website/positionen/digital.html">Digitalisierung</a></li><li><a href="/roberto-cossai-website/positionen/gesundheit.html">Gesundheit</a></li><li><a href="/roberto-cossai-website/positionen/sicherheit.html">Sicherheit</a></li><li><a href="/roberto-cossai-website/positionen/finanzen.html">Finanzen</a></li><li><a href="/roberto-cossai-website/positionen/erreichbarkeit.html">Erreichbarkeit</a></li></ul>
@@ -134,6 +141,6 @@ Tests messen nicht alles. Neugier, Teamarbeit oder Durchhaltewille zeigen sich i
 </div></footer>
 <a class="mobil-aktion" href="/roberto-cossai-website/kontakt.html?thema=bildung" lang="gsw">Säg mer, wo</a>
 <script src="/roberto-cossai-website/js/main.js?v=videoplaetze" defer></script>
-<script src="/roberto-cossai-website/js/cms.js?v=kontaktstandard" defer></script>
+<script src="/roberto-cossai-website/js/cms.js?v=bildung-format-20261128" defer></script>
 </body>
 </html>
