@@ -36,8 +36,16 @@
   text-wrap: wrap;
 }
 [data-slug="wohnen"] .thema-felder dd > h3 + p,
-[data-slug="wohnen"] .thema-felder dd > p + h3 {
+[data-slug="wohnen"] .thema-felder dd > p + h3,
+[data-slug="wohnen"] .thema-felder dd > ul > li + li,
+[data-slug="wohnen"] .thema-felder dd > ul + .quelle {
   margin-block-start: var(--abstand-4);
+}
+
+[data-slug="wohnen"] .thema-felder dd > ul {
+  list-style: disc;
+  padding-inline-start: 1.35em;
+  margin-block: var(--abstand-2) 0;
 }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://leitung-gif.github.io/roberto-cossai-website/"}, {"@type": "ListItem", "position": 2, "name": "Positionen", "item": "https://leitung-gif.github.io/roberto-cossai-website/positionen.html"}, {"@type": "ListItem", "position": 3, "name": "Wohnen", "item": "https://leitung-gif.github.io/roberto-cossai-website/positionen/wohnen.html"}]}</script>
@@ -65,12 +73,15 @@
 <div>
 <dt>Was belegt ist</dt>
 <dd>
-<p>Wohnungen sind im ganzen Kanton knapp. Am 1. Juni 2026 standen im Kanton 0,70 Prozent der Wohnungen leer, in der Stadt Luzern 0,85 Prozent. In vielen Regionen war das Angebot noch knapper, etwa in Sursee/Sempachersee mit 0,45 und in Rottal-Wolhusen mit 0,29 Prozent.</p>
-<p class="quelle"><a href="https://lustat.ch/analysen/bauwesen-wohnungswesen/2026/leerwohnungen" rel="noopener">LUSTAT, Leerwohnungen 2026</a></p>
-<p>2024 waren 15 Prozent der Mietwohnungen im Kanton preisgünstig. Ihre Nettomiete lag unter 70 Prozent des Durchschnitts für Wohnungen mit gleicher Zimmerzahl.</p>
-<p class="quelle"><a href="https://www.lustat.ch/monitoring/sozialindikatoren/wohnen/angebot-an-guenstigem-wohnraum" rel="noopener">LUSTAT, Angebot an günstigem Wohnraum</a></p>
-<p>Der Gegenvorschlag zur Initiative «Für zahlbare Wohnungen» sieht eine neue Verdichtungszone vor. Gemeinden mit ausgewiesenem Wohnraumbedarf können sie freiwillig einsetzen. Darin ist ein Mindestanteil gemeinnütziger Wohnungen Pflicht. Ab 2028 sollen jährlich 5 Millionen Franken als rückzahlbare Darlehen an gemeinnützige Bauträger gehen. Zudem soll das Gesetz über die Erhaltung von Wohnraum aufgehoben werden. Die Vernehmlassung läuft bis 22. Januar 2027. Die Beratungen im Kantonsrat sind für die zweite Hälfte 2027 vorgesehen.</p>
-<p class="quelle"><a href="https://www.lu.ch/regierung/vernehmlassungen_stellungnahmen/vernehmlassungen/vernehmlassung_detail_kanton?ID=476" rel="noopener">Kanton Luzern, Vernehmlassung zum Gegenvorschlag «Für zahlbare Wohnungen»</a></p>
+<ul>
+<li><p>Wohnungen sind im ganzen Kanton knapp. Am 1. Juni 2026 standen im Kanton 0,70 Prozent der Wohnungen leer, in der Stadt Luzern 0,85 Prozent. In vielen Regionen war das Angebot noch knapper, etwa in Sursee/Sempachersee mit 0,45 und in Rottal-Wolhusen mit 0,29 Prozent.</p>
+<p class="quelle"><a href="https://lustat.ch/analysen/bauwesen-wohnungswesen/2026/leerwohnungen" rel="noopener">LUSTAT, Leerwohnungen 2026</a></p></li>
+<li><p>2024 waren 15 Prozent der Mietwohnungen im Kanton preisgünstig. Ihre Nettomiete lag unter 70 Prozent des Durchschnitts für Wohnungen mit gleicher Zimmerzahl.</p>
+<p class="quelle"><a href="https://www.lustat.ch/monitoring/sozialindikatoren/wohnen/angebot-an-guenstigem-wohnraum" rel="noopener">LUSTAT, Angebot an günstigem Wohnraum</a></p></li>
+<li><p>Der Gegenvorschlag zur Initiative «Für zahlbare Wohnungen» sieht eine neue Verdichtungszone vor. Gemeinden mit ausgewiesenem Wohnraumbedarf können sie freiwillig einsetzen. Darin ist ein Mindestanteil gemeinnütziger Wohnungen Pflicht. Ab 2028 sollen jährlich 5 Millionen Franken als rückzahlbare Darlehen an gemeinnützige Bauträger gehen. Zudem soll das Gesetz über die Erhaltung von Wohnraum aufgehoben werden.</p>
+<p>Die Vernehmlassung läuft bis 22. Januar 2027. Die Beratungen im Kantonsrat sind für die zweite Hälfte 2027 vorgesehen.</p>
+<p class="quelle"><a href="https://www.lu.ch/regierung/vernehmlassungen_stellungnahmen/vernehmlassungen/vernehmlassung_detail_kanton?ID=476" rel="noopener">Kanton Luzern, Vernehmlassung zum Gegenvorschlag «Für zahlbare Wohnungen»</a></p></li>
+</ul>
 </dd>
 </div>
 <div>
@@ -78,7 +89,8 @@
 <dd>
 <h3><em>Im Kanton</em></h3>
 <p>Die Verdichtungszone ist der richtige Weg: mehr Wohnungen dort, wo ÖV, Schulen und Strassen mitwachsen, und im Gegenzug mehr gemeinnützige Wohnungen. Bei den Darlehen haben Projekte Vorrang, die zusätzliche bezahlbare Wohnungen schaffen.</p>
-<p>Ich unterstütze die Aufhebung des Gesetzes über die Erhaltung von Wohnraum. Eine zusätzliche Bewilligung kann sinnvolle Sanierungen und Ersatzneubauten verzögern. Wer wegen eines grösseren Ersatzneubaus ausziehen muss, braucht aber eine konkrete Perspektive. Deshalb will ich, dass die Eigentümerschaft die betroffenen Mieterinnen und Mieter früh informiert und sie bei der Suche nach einer Ersatzwohnung unterstützt.</p>
+<p>Ich unterstütze die Aufhebung des Gesetzes über die Erhaltung von Wohnraum. Eine zusätzliche Bewilligung kann sinnvolle Sanierungen und Ersatzneubauten verzögern.</p>
+<p>Wer wegen eines grösseren Ersatzneubaus ausziehen muss, braucht aber eine konkrete Perspektive. Deshalb will ich, dass die Eigentümerschaft die betroffenen Mieterinnen und Mieter früh informiert und sie bei der Suche nach einer Ersatzwohnung unterstützt.</p>
 <h3><em>In der Stadt und den Gemeinden</em></h3>
 <p>Gemeinden mit ausgewiesenem Wohnraumbedarf sollen die neue Zone zügig einsetzen können. Dafür braucht es klare Vorgaben, welche Unterlagen der Kanton verlangt und bis wann er sie prüft.</p>
 <h3><em>Eigentum</em></h3>
@@ -91,7 +103,14 @@
 </div>
 <div>
 <dt>Was ich als Nächstes tue</dt>
-<dd>Wenn der Gegenvorschlag in den Kantonsrat kommt, will ich wissen: Wie viele Wohnungen kommen nach Abzug der abgebrochenen dazu? Wie viele bleiben langfristig bezahlbar? Und wie lange dauert es vom vollständigen Baugesuch bis zum Entscheid?</dd>
+<dd>
+<p>Wenn der Gegenvorschlag in den Kantonsrat kommt, will ich wissen:</p>
+<ul>
+<li>Um wie viele Wohnungen wächst der Bestand?</li>
+<li>Wie viele bleiben langfristig bezahlbar?</li>
+<li>Und wie lange dauert es vom vollständigen Baugesuch bis zum Entscheid?</li>
+</ul>
+</dd>
 </div>
 </dl>
 <div class="thema-frage">
@@ -120,6 +139,6 @@
 </div></footer>
 <a class="mobil-aktion" href="/roberto-cossai-website/kontakt.html?thema=wohnen" lang="gsw">Säg mer, wo</a>
 <script src="/roberto-cossai-website/js/main.js?v=videoplaetze" defer></script>
-<script src="/roberto-cossai-website/js/cms.js?v=kontaktstandard" defer></script>
+<script src="/roberto-cossai-website/js/cms.js?v=wohnen-format-20261128" defer></script>
 </body>
 </html>
