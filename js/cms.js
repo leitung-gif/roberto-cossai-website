@@ -111,7 +111,9 @@
     return liste.filter(function (t) { return t.id !== ohne; }).map(function (t) { return '<li><a href="' + B + "/positionen/" + h(t.id) + '.html">' + h(t.navTitel || t.titel) + "</a></li>"; }).join("");
   }
   function positionsliste(punkte) {
-    return "<ul>" + punkte.map(function (punkt) { return "<li>" + h(punkt) + "</li>"; }).join("") + "</ul>";
+    return "<ul>" + punkte.map(function (punkt) {
+      return "<li>" + h(punkt).replace(/^(Mathematik:|Französisch:|Erwachsenenbildung:)/, "<strong>$1</strong>") + "</li>";
+    }).join("") + "</ul>";
   }
   function positionInhalt(t, liste) {
     var digital = t.id === "digital";
@@ -121,20 +123,26 @@
     var bildung = t.id === "bildung";
     var mitAbschnittstiteln = wohnen || finanzen || bildung;
     var gegliedert = t.id === "gesundheit" || erreichbarkeit || digital || mitAbschnittstiteln;
-    var position = wohnen ? absatzTeile(t.kurz) : [t.kurz];
-    var kurz = bildung ? positionsliste(absatzTeile(t.kurz)) : '<p class="thema-kern">' + h(position[0]) + "</p>" + position.slice(1).map(function (absatz) { return "<p>" + h(absatz) + "</p>"; }).join("");
+    var position = wohnen || bildung ? absatzTeile(t.kurz) : [t.kurz];
+    var kurz = '<p class="thema-kern">' + h(position[0]) + "</p>" + position.slice(1).map(function (absatz) { return "<p>" + h(absatz) + "</p>"; }).join("");
     var frage = h(t.frage);
-    if (bildung) frage = "<strong>" + frage + "</strong>";
-    else if (gegliedert) frage = "<em>" + frage + "</em>";
+    if (gegliedert) frage = "<em>" + frage + "</em>";
     var f = "";
     var belege = t.belege || h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "");
+    if (bildung) {
+      belege = belege.replace(/<li>([\s\S]*?)<\/li>/g, function (_, punkt) {
+        punkt = punkt.replace(/^(Mathematik:|Französisch:)/, "<strong>$1</strong>");
+        punkt = punkt.replace(/(\s+)((?:<a\b[^>]*>[^<]*<\/a>)(?:\s*·\s*<a\b[^>]*>[^<]*<\/a>)*\s*)$/, '$1<span class="quelle">$2</span>');
+        return "<li>" + punkt + "</li>";
+      });
+    }
     if (belege) f += "<div><dt>Was belegt ist</dt><dd>" + belege + "</dd></div>";
     var stehe = gegliedert ? absaetze(t.stehe) : h(t.stehe);
     if (mitAbschnittstiteln) {
       stehe = absatzTeile(t.stehe).map(function (absatz) {
         if (absatz.indexOf("### ") !== 0) return "<p>" + h(absatz) + "</p>";
         var titel = h(absatz.slice(4));
-        return "<h3>" + (bildung ? titel : "<em>" + titel + "</em>") + "</h3>";
+        return "<h3><em>" + titel + "</em></h3>";
       }).join("");
     }
     if (digital) stehe = stehe.replace("Mehr dazu unter Sicherheit.",
