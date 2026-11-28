@@ -115,6 +115,22 @@
       return "<li>" + h(punkt).replace(/^(Mathematik:|Französisch:|Erwachsenenbildung:)/, "<strong>$1</strong>") + "</li>";
     }).join("") + "</ul>";
   }
+  function wohnBelege(belege) {
+    var paare = belege.match(/<p>(?:(?!<\/p>)[\s\S])*<\/p><p class="quelle">(?:(?!<\/p>)[\s\S])*<\/p>/g);
+    if (!paare || paare.join("") !== belege) return belege;
+    return "<ul>" + paare.map(function (paar) {
+      return "<li>" + paar.replace(" Die Vernehmlassung läuft", "</p><p>Die Vernehmlassung läuft") + "</li>";
+    }).join("") + "</ul>";
+  }
+  function wohnSchritte(text) {
+    var teile = text.match(/^(.*?:)\s+([\s\S]+)$/);
+    if (!teile) return h(text);
+    var fragen = teile[2].split(/\?\s+/).map(function (frage, i, liste) {
+      return i < liste.length - 1 ? frage + "?" : frage.trim();
+    });
+    if (fragen.length < 2 || !fragen.every(function (frage) { return frage.endsWith("?"); })) return h(text);
+    return "<p>" + h(teile[1]) + "</p>" + positionsliste(fragen);
+  }
   function positionInhalt(t, liste) {
     var digital = t.id === "digital";
     var erreichbarkeit = t.id === "erreichbarkeit";
@@ -129,6 +145,7 @@
     if (gegliedert) frage = "<em>" + frage + "</em>";
     var f = "";
     var belege = t.belege || h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "");
+    if (wohnen) belege = wohnBelege(belege);
     if (bildung) {
       belege = belege.replace(/<li>([\s\S]*?)<\/li>/g, function (_, punkt) {
         punkt = punkt.replace(/^(Mathematik:|Französisch:)/, "<strong>$1</strong>");
@@ -145,6 +162,7 @@
         return "<h3><em>" + titel + "</em></h3>";
       }).join("");
     }
+    if (wohnen) stehe = stehe.replace(" Wer wegen eines grösseren Ersatzneubaus", "</p><p>Wer wegen eines grösseren Ersatzneubaus");
     if (digital) stehe = stehe.replace("Mehr dazu unter Sicherheit.",
       'Mehr dazu unter <a href="' + B + '/positionen/sicherheit.html">Sicherheit</a>.');
     if (finanzen) stehe = stehe.replace("Mehr dazu unter Digitalisierung.",
@@ -160,6 +178,7 @@
     if (!gegliedert && t.preis) f += "<div><dt>Was es kostet</dt><dd>" + h(t.preis) + "</dd></div>";
     if (t.voran) {
       var voran = h(t.voran);
+      if (wohnen) voran = wohnSchritte(t.voran);
       if (bildung) {
         var schritte = absatzTeile(t.voran);
         voran = "<p>" + h(schritte[0]) + "</p>" + positionsliste(schritte.slice(1));
