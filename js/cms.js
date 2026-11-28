@@ -115,21 +115,25 @@
       return "<li>" + h(punkt).replace(/^(Mathematik:|Französisch:|Erwachsenenbildung:)/, "<strong>$1</strong>") + "</li>";
     }).join("") + "</ul>";
   }
-  function wohnBelege(belege) {
+  function belegeListe(belege, umbruch) {
     var paare = belege.match(/<p>(?:(?!<\/p>)[\s\S])*<\/p><p class="quelle">(?:(?!<\/p>)[\s\S])*<\/p>/g);
     if (!paare || paare.join("") !== belege) return belege;
     return "<ul>" + paare.map(function (paar) {
-      return "<li>" + paar.replace(" Die Vernehmlassung läuft", "</p><p>Die Vernehmlassung läuft") + "</li>";
+      return "<li>" + (umbruch ? paar.replace(" " + umbruch, "</p><p>" + umbruch) : paar) + "</li>";
     }).join("") + "</ul>";
+  }
+  function fragenliste(text) {
+    var fragen = text.trim().split(/\?\s+/).map(function (frage, i, liste) {
+      return i < liste.length - 1 ? frage + "?" : frage.trim();
+    });
+    if (fragen.length < 2 || !fragen.every(function (frage) { return frage.endsWith("?"); })) return "";
+    return positionsliste(fragen);
   }
   function wohnSchritte(text) {
     var teile = text.match(/^(.*?:)\s+([\s\S]+)$/);
     if (!teile) return h(text);
-    var fragen = teile[2].split(/\?\s+/).map(function (frage, i, liste) {
-      return i < liste.length - 1 ? frage + "?" : frage.trim();
-    });
-    if (fragen.length < 2 || !fragen.every(function (frage) { return frage.endsWith("?"); })) return h(text);
-    return "<p>" + h(teile[1]) + "</p>" + positionsliste(fragen);
+    var liste = fragenliste(teile[2]);
+    return liste ? "<p>" + h(teile[1]) + "</p>" + liste : h(text);
   }
   function positionInhalt(t, liste) {
     var digital = t.id === "digital";
@@ -145,7 +149,7 @@
     if (gegliedert) frage = "<em>" + frage + "</em>";
     var f = "";
     var belege = t.belege || h(t.belegt) + (t.qn && t.ql ? ' <a class="quelle" href="' + h(t.ql) + '" rel="noopener">' + h(t.qn) + "</a>" : "");
-    if (wohnen) belege = wohnBelege(belege);
+    if (wohnen || digital) belege = belegeListe(belege, wohnen ? "Die Vernehmlassung läuft" : "");
     if (bildung) {
       belege = belege.replace(/<li>([\s\S]*?)<\/li>/g, function (_, punkt) {
         punkt = punkt.replace(/^(Mathematik:|Französisch:)/, "<strong>$1</strong>");
@@ -171,7 +175,7 @@
       '<a href="https://beruf.lu.ch/Berufslehre/Bildung_und_Berufsabschluss_fuer_Erwachsene/Grundkompetenzen_Erwachsene/Beratung_und_Kurse" rel="noopener">Beratung und Kurse des Kantons Luzern</a>');
     f += "<div><dt>Wo ich stehe</dt><dd>" + stehe + "</dd></div>";
     if (gegliedert && t.abwaegung) {
-      var abwaegung = h(t.abwaegung);
+      var abwaegung = (digital && fragenliste(t.abwaegung)) || h(t.abwaegung);
       if (erreichbarkeit) abwaegung = abwaegung.replace(/\bParkierungsinitiative\b/, '<a href="https://parkraumgestaltung.ch/" rel="noopener">Parkierungsinitiative</a>');
       f += "<div><dt>Was ich abwäge</dt><dd>" + abwaegung + "</dd></div>";
     }
